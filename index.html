@@ -229,6 +229,7 @@
       <header class="top">
         <h1>Дневник питания</h1>
         <span class="date" id="dateLabel">—</span>
+        <button id="refreshBtn" title="Обновить" style="border:none;background:none;padding:4px 0 4px 10px;cursor:pointer;color:var(--purple-1);font-size:12px;font-weight:700;">Обновить</button>
       </header>
       <div class="actions">
         <button class="action-btn voice" id="btnVoice">
@@ -733,9 +734,12 @@
     else { phase='Лютеиновая фаза'; note='Прогестерон растёт — тянет на сладкое и мучное. Это гормоны, а не отсутствие силы воли.'; }
     return { dayInCycle, phase, note };
   }
+  let cycleMonthOffset = 0;
+
   function renderCalendarGrid(){
     const start = new Date(CYCLE.lastPeriodStart);
-    const y = today.getFullYear(), m = today.getMonth();
+    const shown = new Date(today.getFullYear(), today.getMonth() + cycleMonthOffset, 1);
+    const y = shown.getFullYear(), m = shown.getMonth();
     const firstDay = new Date(y, m, 1);
     const daysInMonth = new Date(y, m+1, 0).getDate();
     let startDow = firstDay.getDay(); startDow = (startDow===0)?6:startDow-1;
@@ -754,6 +758,7 @@
   }
   function renderCycle(){
     const info = cycleDayInfo();
+    const shownMonth = new Date(today.getFullYear(), today.getMonth() + cycleMonthOffset, 1);
     document.getElementById('cycleContent').innerHTML = `
       <div class="card phase-card">
         <div class="phase-name">${info.phase}</div>
@@ -761,7 +766,11 @@
         <div class="phase-note">${info.note}</div>
       </div>
       <div class="card">
-        <div class="section-title" style="margin:0 0 4px;"><span>${MONTHS_NOM[today.getMonth()]}</span></div>
+        <div class="period-nav">
+          <button class="arrow" id="cycPrev">${CHEVRON_L}</button>
+          <div class="period-label">${MONTHS_NOM[shownMonth.getMonth()]} ${shownMonth.getFullYear()}</div>
+          <button class="arrow" id="cycNext">${CHEVRON_R}</button>
+        </div>
         ${renderCalendarGrid()}
         <div class="legend">
           <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(135deg,var(--pink-1),var(--pink-2));"></div>Месячные</div>
@@ -773,8 +782,11 @@
     document.getElementById('startPeriodBtn').addEventListener('click', () => {
       CYCLE.lastPeriodStart = todayKey;
       recordOp('cycle', { lastPeriodStart: todayKey });
+      cycleMonthOffset = 0;
       renderCycle();
     });
+    document.getElementById('cycPrev').addEventListener('click', () => { cycleMonthOffset -= 1; renderCycle(); });
+    document.getElementById('cycNext').addEventListener('click', () => { cycleMonthOffset += 1; renderCycle(); });
   }
 
   function renderHabits(){
@@ -1043,6 +1055,12 @@
   document.getElementById('deleteEntryBtn').addEventListener('click', deleteEntryFromForm);
   document.getElementById('modalBack').addEventListener('click', (e) => { if(e.target.id === 'modalBack') closeEntryModal(); });
   document.getElementById('syncBtn').addEventListener('click', sendPendingOps);
+  document.getElementById('refreshBtn').addEventListener('click', () => {
+    const b = document.getElementById('refreshBtn');
+    b.textContent = 'Обновляю…';
+    loadData();
+    setTimeout(() => { b.textContent = 'Обновить'; }, 1200);
+  });
   loadData();
 </script>
 
