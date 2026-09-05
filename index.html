@@ -215,6 +215,18 @@
   .btn-cancel{background:var(--bg);color:var(--ink-soft);}
   .btn-delete{background:#fff0f3;color:#e2456b;}
   .hint{font-size:11.5px;color:var(--ink-soft);line-height:1.5;margin-top:10px;}
+
+  /* --- график привычек в истории --- */
+  .habit-chart{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:6px;height:140px;padding:10px 2px 0;margin-bottom:10px;}
+  .habit-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+  .habit-bars{display:flex;gap:3px;align-items:flex-end;height:100%;width:100%;justify-content:center;}
+  .hb-track{width:9px;height:100%;background:var(--line);border-radius:5px;display:flex;align-items:flex-end;overflow:hidden;}
+  .hb-fill{width:100%;border-radius:5px;transition:height .5s ease;}
+  .hb-fill.water{background:linear-gradient(180deg,var(--blue-2),var(--blue-1));}
+  .hb-fill.steps{background:linear-gradient(180deg,var(--purple-2),var(--purple-1));}
+  .hb-zar{width:16px;height:16px;border-radius:50%;background:var(--line);margin:6px 0 2px;display:flex;align-items:center;justify-content:center;}
+  .hb-zar.on{background:linear-gradient(135deg,var(--green-1),var(--green-2));}
+  .hb-zar svg{width:10px;height:10px;}
 </style>
 </head>
 <body>
@@ -883,7 +895,14 @@
   }
 
   function bindHabitHandlers(){
-    const saveHabits = () => { recordOp('habits', { waterCurrent: HABITS.waterCurrent, zaryadka: HABITS.zaryadka, sleepHours: HABITS.sleepHours }); renderAll(); };
+    const saveHabits = () => {
+      const day = DAYS[todayKey] || (DAYS[todayKey] = { steps: 0, water: 0, entries: [] });
+      day.water = HABITS.waterCurrent;
+      day.zaryadka = HABITS.zaryadka;
+      day.sleepHours = HABITS.sleepHours;
+      recordOp('habits', { waterCurrent: HABITS.waterCurrent, zaryadka: HABITS.zaryadka, sleepHours: HABITS.sleepHours });
+      renderAll();
+    };
     document.getElementById('waterPlus').addEventListener('click', () => { HABITS.waterCurrent += 250; saveHabits(); });
     document.getElementById('waterMinus').addEventListener('click', () => { HABITS.waterCurrent = Math.max(0, HABITS.waterCurrent - 250); saveHabits(); });
     document.getElementById('zaryadkaBtn').addEventListener('click', () => { HABITS.zaryadka = !HABITS.zaryadka; saveHabits(); });
@@ -891,43 +910,40 @@
     document.getElementById('sleepMinus').addEventListener('click', () => { HABITS.sleepHours = Math.max(0, +(HABITS.sleepHours - 0.5).toFixed(1)); saveHabits(); });
   }
 
-  function detailCardHtml(agg, titleLabel, calGoal, waterGoal, stepsGoal, macroGoals){
-    const pct = Math.round((agg.c/calGoal)*100);
-    const stepsPct = Math.min(100, Math.round((agg.steps/stepsGoal)*100));
-    const waterPct = Math.min(100, Math.round((agg.water/waterGoal)*100));
-    let html = `
-      <div class="section-title"><span>${titleLabel}</span></div>
-      <div class="card cal-card">
-        <div class="cal-ring-wrap">${ringSvg(pct)}<div class="cal-ring-center"><div class="pct">${pct}%</div><div class="pct-label">нормы</div></div></div>
-        <div class="cal-info">
-          <div class="eyebrow">Калории</div>
-          <div class="num">${agg.c} <span>/ ${calGoal} ккал</span></div>
-          <div class="macros">${macroBarRow(agg.p,macroGoals.protein,'p','Белки')}${macroBarRow(agg.f,macroGoals.fat,'f','Жиры')}${macroBarRow(agg.cb,macroGoals.carbs,'c','Углеводы')}</div>
+  // Второй график истории: выполнение нормы по воде и активности,
+  // плюс отметка о зарядке. Столбцы устроены так же, как в графике калорий.
+  function habitsChartHtml(keys){
+    const cols = keys.map(k => {
+      const agg = getDayAggregate(k);
+      const day = DAYS[k] || {};
+      const zar = (k === todayKey) ? HABITS.zaryadka : !!day.zaryadka;
+      const wPct = Math.min(100, Math.round((agg.water / GOALS.water) * 100));
+      const sPct = Math.min(100, Math.round((agg.steps / GOALS.steps) * 100));
+      const dow = WEEKDAYS_SHORT[new Date(k).getDay()];
+      return `<div class="habit-col">
+        <div class="habit-bars">
+          <div class="hb-track"><div class="hb-fill water" style="height:${wPct}%"></div></div>
+          <div class="hb-track"><div class="hb-fill steps" style="height:${sPct}%"></div></div>
         </div>
-      </div>
-      <div class="card steps-card" style="background:linear-gradient(135deg,var(--blue-1),var(--blue-2));">
-        <div class="icon">${DROP_SVG.replace('currentColor','#fff')}</div>
-        <div class="info">
-          <div class="num">${agg.water.toLocaleString('ru-RU')} <span>/ ${waterGoal.toLocaleString('ru-RU')} мл</span></div>
-          <div class="label">Вода</div>
-          <div class="steps-track"><div class="steps-fill" style="width:${waterPct}%"></div></div>
-        </div>
-      </div>
-      <div class="card steps-card">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-2a4 4 0 0 1 4-4h1"/><path d="M20 8v2a4 4 0 0 1-4 4h-1"/><circle cx="8" cy="6" r="2"/><circle cx="16" cy="18" r="2"/></svg></div>
-        <div class="info">
-          <div class="num">${agg.steps.toLocaleString('ru-RU')} <span>/ ${stepsGoal.toLocaleString('ru-RU')} шагов</span></div>
-          <div class="label">Активность</div>
-          <div class="steps-track"><div class="steps-fill" style="width:${stepsPct}%"></div></div>
-        </div>
+        <div class="hb-zar ${zar ? 'on' : ''}">${zar ? CHECK_SVG : ''}</div>
+        <div class="week-label">${dow}<span class="kcal">${wPct}% · ${sPct}%</span></div>
       </div>`;
-    if(agg.hasDetail){ html += mealSectionHtml(agg.entries,'breakfast',false) + mealSectionHtml(agg.entries,'lunch',false) + mealSectionHtml(agg.entries,'dinner',false) + mealSectionHtml(agg.entries,'snack',false); }
-    else { html += `<div class="card"><div class="no-detail-note">Разбивка по приёмам пищи хранится за последние 7 дней. Для более раннего периода показаны только итоги.</div></div>`; }
-    return html;
+    }).join('');
+    return `
+      <div class="section-title"><span>Вода, активность и зарядка</span></div>
+      <div class="card">
+        <div class="habit-chart"><div class="goal-line" style="bottom:100%;"></div>${cols}</div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--blue-1),var(--blue-2));"></div>Вода</div>
+          <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--purple-1),var(--purple-2));"></div>Активность</div>
+          <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--green-1),var(--green-2));"></div>Зарядка</div>
+        </div>
+        <div class="hint">Столбики показывают, сколько процентов дневной нормы закрыто. Линия сверху — сама норма.</div>
+      </div>`;
   }
 
   function renderHistory(){
-    let headerHtml, chartHtml, detailHtml;
+    let headerHtml, chartHtml, habitsHtml;
     if(periodMode === 'week'){
       const endDate = addDays(today, weekOffset*7);
       const endKey = ymd(endDate);
@@ -962,10 +978,7 @@
         <div class="legend"><div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--pink-1),var(--pink-2));"></div>Белки</div><div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--orange-1),var(--orange-2));"></div>Жиры</div><div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--green-1),var(--green-2));"></div>Углеводы</div></div>
         <div class="legend"><div class="legend-item"><div class="ind-dot water on" style="width:12px;height:12px;">${DROP_SVG}</div>Норма воды</div><div class="legend-item"><div class="ind-dot steps on" style="width:12px;height:12px;">${BOLT_SVG}</div>Норма активности</div></div>
         <div class="filter-row"><input type="date" id="dateFilter" value="${selectedHistoryDate}" min="${startKey}" max="${endKey}"></div>`;
-      const agg = getDayAggregate(selectedHistoryDate);
-      const isToday = selectedHistoryDate === todayKey;
-      const label = isToday ? 'Сегодня' : formatDateFull(new Date(selectedHistoryDate));
-      detailHtml = detailCardHtml(agg, label, GOALS.calories, GOALS.water, GOALS.steps, GOALS);
+      habitsHtml = habitsChartHtml(winKeys);
     } else {
       const endDate = addDays(today, monthOffset*28);
       const endKey = ymd(endDate);
@@ -1007,13 +1020,13 @@
         <div class="legend"><div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--pink-1),var(--pink-2));"></div>Белки</div><div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--orange-1),var(--orange-2));"></div>Жиры</div><div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--green-1),var(--green-2));"></div>Углеводы</div></div>
         <div class="legend"><div class="legend-item"><div class="ind-dot water on" style="width:12px;height:12px;">${DROP_SVG}</div>Средняя норма воды</div><div class="legend-item"><div class="ind-dot steps on" style="width:12px;height:12px;">${BOLT_SVG}</div>Средняя активность</div></div>`;
       const sel = buckets.find(b=>b.idx===selectedWeekIndex) || buckets[3];
-      const agg = { c: sel.sum.c, p: sel.sum.p, f: sel.sum.f, cb: sel.sum.cb, water: sel.avgWater, steps: sel.avgSteps, hasDetail:false, entries:[] };
-      detailHtml = detailCardHtml(agg, `Неделя ${shortRange(sel.startKey,sel.endKey)}`, weekGoal, GOALS.water, GOALS.steps, { protein: GOALS.protein*7, fat: GOALS.fat*7, carbs: GOALS.carbs*7 });
+      const selKeys = []; for(let i=0;i<7;i++) selKeys.push(ymd(addDays(new Date(sel.startKey), i)));
+      habitsHtml = habitsChartHtml(selKeys);
     }
     document.getElementById('historyContent').innerHTML = `
       <div class="period-toggle"><button data-mode="week" class="${periodMode==='week'?'active':''}">Неделя</button><button data-mode="month" class="${periodMode==='month'?'active':''}">Месяц</button></div>
       <div class="card">${headerHtml}${chartHtml}</div>
-      ${detailHtml}
+      ${habitsHtml}
     `;
     document.getElementById('prevBtn').addEventListener('click', () => { if(periodMode==='week') weekOffset -= 1; else monthOffset -= 1; renderHistory(); });
     document.getElementById('nextBtn').addEventListener('click', () => { if(periodMode==='week'){ if(weekOffset<0) weekOffset += 1; } else { if(monthOffset<0) monthOffset += 1; } renderHistory(); });
