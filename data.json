@@ -1,55 +1,79 @@
 {
-  "today": "2026-09-05",
-  "goals": {
-    "calories": 2100,
-    "protein": 130,
-    "fat": 70,
-    "carbs": 240,
-    "steps": 10000,
-    "water": 2000,
-    "sleepHours": 7
-  },
-  "habits": {
-    "waterCurrent": 0,
-    "zaryadka": false,
-    "sleepHours": 0
-  },
-  "cycle": {
-    "lastPeriodStart": "2026-08-16",
-    "cycleLength": 28,
-    "periodLength": 5
-  },
-  "days": {
-    "2026-09-05": {
-      "steps": 0,
-      "water": 0,
-      "entries": [
-        {
-          "time": "07:50",
-          "meal": "breakfast",
-          "source": "voice",
-          "title": "Зелёный чай и 2 пустых блинчика",
-          "detail": "чай 300 мл, блинчики без начинки, примерно",
-          "calories": 130,
-          "protein": 4,
-          "fat": 4,
-          "carbs": 19,
-          "id": "e9a3f21c0"
-        },
-        {
-          "time": "15:30",
-          "meal": "lunch",
-          "source": "voice",
-          "title": "Начинка от 2 фаршированных кабачков со сметаной",
-          "detail": "кабачки не ела, только мясо + 2 ст. л. сметаны, примерно",
-          "calories": 400,
-          "protein": 24,
-          "fat": 28,
-          "carbs": 9,
-          "id": "ec686021d"
-        }
-      ]
+ "today": "2026-09-05",
+ "goals": {
+  "calories": 2100,
+  "protein": 130,
+  "fat": 70,
+  "carbs": 240,
+  "steps": 10000,
+  "water": 2000,
+  "sleepHours": 7
+ },
+ "habits": {
+  "waterCurrent": 0,
+  "zaryadka": false,
+  "sleepHours": 0
+ },
+ "cycle": {
+  "lastPeriodStart": "2026-08-16",
+  "cycleLength": 28,
+  "periodLength": 5
+ },
+ "days": {
+  "2026-09-05": {
+   "steps": 0,
+   "water": 0,
+   "entries": [
+    {
+     "time": "07:50",
+     "meal": "breakfast",
+     "source": "voice",
+     "title": "Зелёный чай и 2 пустых блинчика",
+     "detail": "чай 300 мл, блинчики без начинки, примерно",
+     "calories": 130,
+     "protein": 4,
+     "fat": 4,
+     "carbs": 19,
+     "id": "e9a3f21c0"
+    },
+    {
+     "time": "15:00",
+     "meal": "snack",
+     "source": "voice",
+     "title": "Чёрный кофе без молока",
+     "detail": "300 мл",
+     "calories": 4,
+     "protein": 0,
+     "fat": 0,
+     "carbs": 0,
+     "id": "e15coffee0"
+    },
+    {
+     "time": "15:00",
+     "meal": "snack",
+     "source": "voice",
+     "title": "Зефир",
+     "detail": "1 шт, примерно",
+     "calories": 107,
+     "protein": 0,
+     "fat": 0,
+     "carbs": 26,
+     "id": "e15zefir00"
+    },
+    {
+     "time": "15:30",
+     "meal": "lunch",
+     "source": "voice",
+     "title": "Начинка от 2 фаршированных кабачков со сметаной",
+     "detail": "кабачки не ела, только мясо + 2 ст. л. сметаны, примерно",
+     "calories": 400,
+     "protein": 24,
+     "fat": 28,
+     "carbs": 9,
+     "id": "ec686021d"
     }
-  },
-  "appliedOps": []
+   ]
+  }
+ },
+ "appliedOps": []
 }
