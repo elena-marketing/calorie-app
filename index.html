@@ -197,7 +197,10 @@
   .entry{cursor:pointer;}
   .entry .edit-hint{font-size:10.5px;color:var(--ink-soft);margin-top:2px;}
   .sync-bar{position:fixed;left:0;right:0;bottom:76px;display:flex;justify-content:center;pointer-events:none;z-index:60;}
-  .sync-bar button{pointer-events:auto;border:none;border-radius:22px;padding:12px 20px;font-size:13px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--orange-1),var(--orange-2));box-shadow:0 10px 24px -10px rgba(255,122,77,.7);cursor:pointer;}
+  .sync-status{border-radius:22px;padding:10px 18px;font-size:12.5px;font-weight:700;color:#fff;box-shadow:0 10px 24px -12px rgba(60,40,110,.6);}
+  .sync-status.saving{background:linear-gradient(135deg,var(--purple-1),var(--purple-2));}
+  .sync-status.saved{background:linear-gradient(135deg,var(--green-1),var(--green-2));}
+  .sync-status.error{background:linear-gradient(135deg,var(--orange-1),var(--orange-2));}
   .modal-back{position:fixed;inset:0;background:rgba(36,31,61,.55);display:flex;align-items:flex-end;justify-content:center;z-index:80;}
   .modal-back.hidden{display:none;}
   .modal{background:var(--card);width:100%;max-width:480px;border-radius:24px 24px 0 0;padding:18px 18px 26px;max-height:92vh;overflow-y:auto;}
@@ -253,7 +256,7 @@
 </div>
 
 <div class="sync-bar hidden" id="syncBar">
-  <button type="button" id="syncBtn">Отправить боту</button>
+  <div class="sync-status saving">Сохраняю…</div>
 </div>
 
 <div class="modal-back hidden" id="modalBack">
@@ -354,6 +357,50 @@
     ops.push({ id: 'o' + Date.now().toString(36) + Math.random().toString(36).slice(2,6), type, payload });
     savePendingOps(ops);
     renderSyncBar();
+    scheduleAutoSync();
+  }
+
+  // ===== автоматическая синхронизация =====
+  // Правки уходят на приёмник сами, через пару секунд после последнего изменения.
+  // Адрес приёмника лежит рядом в endpoint.json: у туннеля он меняется при перезапуске.
+  let endpointUrl = null;
+  let autoSyncTimer = null;
+  let syncState = 'idle';   // idle | saving | saved | error
+
+  function loadEndpoint(){
+    return fetch('endpoint.json?v=' + Date.now())
+      .then(r => r.ok ? r.json() : null)
+      .then(j => { endpointUrl = (j && j.url) || null; })
+      .catch(() => { endpointUrl = null; });
+  }
+
+  function scheduleAutoSync(){
+    clearTimeout(autoSyncTimer);
+    autoSyncTimer = setTimeout(autoSync, 2000);
+  }
+
+  function autoSync(){
+    const ops = loadPendingOps();
+    if(!ops.length || !endpointUrl) return;
+    let initData = '';
+    try{ initData = (window.Telegram && Telegram.WebApp && Telegram.WebApp.initData) || ''; }catch(e){}
+    syncState = 'saving'; renderSyncBar();
+    fetch(endpointUrl + '/ops', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ initData, ops })
+    })
+      .then(r => r.json())
+      .then(res => {
+        if(res && res.ok){
+          dropAppliedOps(res.applied || ops.map(o => o.id));
+          syncState = 'saved';
+        } else {
+          syncState = 'error';
+        }
+        renderSyncBar();
+      })
+      .catch(() => { syncState = 'error'; renderSyncBar(); });
   }
   function dropAppliedOps(appliedIds){
     if(!appliedIds.length) return;
@@ -414,13 +461,25 @@
     return false;
   }
 
+  // Полоска внизу — только статус, нажимать её не нужно.
   function renderSyncBar(){
     const bar = document.getElementById('syncBar');
     if(!bar) return;
     const n = loadPendingOps().length;
-    if(!n){ bar.classList.add('hidden'); return; }
+    const el = bar.querySelector('.sync-status');
+    if(!n && syncState !== 'saved'){ bar.classList.add('hidden'); return; }
     bar.classList.remove('hidden');
-    bar.querySelector('button').textContent = 'Отправить боту: ' + n + ' ' + plural(n, 'правка', 'правки', 'правок');
+    if(syncState === 'saving'){ el.textContent = 'Сохраняю…'; el.className = 'sync-status saving'; }
+    else if(syncState === 'saved' && !n){
+      el.textContent = 'Сохранено';
+      el.className = 'sync-status saved';
+      setTimeout(() => { if(!loadPendingOps().length){ bar.classList.add('hidden'); } }, 2500);
+    }
+    else if(syncState === 'error'){
+      el.textContent = 'Нет связи, ' + n + ' ' + plural(n,'правка','правки','правок') + ' ждут';
+      el.className = 'sync-status error';
+    }
+    else { el.textContent = 'Сохраняю…'; el.className = 'sync-status saving'; }
   }
   function plural(n, one, few, many){
     const m10 = n % 10, m100 = n % 100;
@@ -428,12 +487,6 @@
     if(m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
     return many;
   }
-  function sendPendingOps(){
-    const ops = loadPendingOps();
-    if(!ops.length) return;
-    sendToBot({ v: 1, ops }, 'Чтобы отправить правки боту, открой дневник кнопкой «Дневник» на клавиатуре в чате, а не через меню. Пока правки сохранены в приложении и не потеряются.');
-  }
-
   // ===== форма добавления и правки записи =====
   let editingId = null;
 
@@ -1057,14 +1110,13 @@
   document.getElementById('cancelEntryBtn').addEventListener('click', closeEntryModal);
   document.getElementById('deleteEntryBtn').addEventListener('click', deleteEntryFromForm);
   document.getElementById('modalBack').addEventListener('click', (e) => { if(e.target.id === 'modalBack') closeEntryModal(); });
-  document.getElementById('syncBtn').addEventListener('click', sendPendingOps);
   document.getElementById('refreshBtn').addEventListener('click', () => {
     const b = document.getElementById('refreshBtn');
     b.textContent = 'Обновляю…';
     loadData();
     setTimeout(() => { b.textContent = 'Обновить'; }, 1200);
   });
-  loadData();
+  loadEndpoint().then(() => { loadData(); autoSync(); });
 </script>
 
 </body>
