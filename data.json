@@ -81,6 +81,7 @@
         { "time": "08:40", "meal": "breakfast", "source": "photo", "title": "Овсянка с бананом", "detail": "на молоке, с мёдом", "calories": 380, "protein": 12, "fat": 8, "carbs": 65 },
         { "time": "13:10", "meal": "lunch", "source": "photo", "title": "Куриная грудка с рисом", "detail": "150 г курицы, 120 г риса, овощи", "calories": 520, "protein": 38, "fat": 9, "carbs": 61 },
         { "time": "13:40", "meal": "lunch", "source": "voice", "title": "Греческий йогурт", "detail": "с орехами и ягодами", "calories": 210, "protein": 7, "fat": 3, "carbs": 23 },
+        { "time": "15:30", "meal": "lunch", "source": "voice", "title": "Начинка от 2 фаршированных кабачков со сметаной", "detail": "кабачки не ела, только мясо + 2 ст. л. сметаны, примерно", "calories": 400, "protein": 24, "fat": 28, "carbs": 9 },
         { "time": "19:20", "meal": "dinner", "source": "photo", "title": "Лосось с овощами", "detail": "150 г лосося, брокколи, кабачок", "calories": 430, "protein": 34, "fat": 22, "carbs": 14 }
       ]
     }
