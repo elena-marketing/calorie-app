@@ -673,16 +673,6 @@
       ${mealSectionHtml(dayObj.entries,'snack')}
     `;
     document.getElementById('addEntryBtn').addEventListener('click', () => openEntryModal(null));
-    document.getElementById('waterPlusToday').addEventListener('click', () => {
-      HABITS.waterCurrent += 250;
-      recordOp('habits', { waterCurrent: HABITS.waterCurrent, zaryadka: HABITS.zaryadka, sleepHours: HABITS.sleepHours });
-      renderAll();
-    });
-    document.getElementById('waterMinusToday').addEventListener('click', () => {
-      HABITS.waterCurrent = Math.max(0, HABITS.waterCurrent - 250);
-      recordOp('habits', { waterCurrent: HABITS.waterCurrent, zaryadka: HABITS.zaryadka, sleepHours: HABITS.sleepHours });
-      renderAll();
-    });
     document.getElementById('stepsCard').addEventListener('click', () => {
       const cur = DAYS[todayKey].steps || 0;
       const val = prompt('Сколько шагов за сегодня?', String(cur));
@@ -1028,9 +1018,18 @@
         dropAppliedOps(json.appliedOps || []);
         applyPendingOps();
         showMain();
-        renderAll();
-        renderRecipes();
-        renderSyncBar();
+        // Ошибка в одном блоке не должна оставлять пустой экран:
+        // показываем заглушку с причиной, а не белое поле.
+        try{
+          renderAll();
+          renderRecipes();
+          renderSyncBar();
+        }catch(err){
+          console.error('Ошибка отрисовки', err);
+          showPlaceholder();
+          const msg = document.querySelector('#placeholder .msg');
+          if(msg) msg.textContent = 'Ошибка в приложении: ' + (err && err.message ? err.message : err);
+        }
       })
       .catch(err => {
         console.error('Не удалось загрузить data.json', err);
