@@ -404,15 +404,33 @@
     });
   }
 
-  function openBotChat(text){
-    const url = 'https://t.me/' + BOT_USERNAME + (text ? '?text=' + encodeURIComponent(text) : '');
+  // Приложение живёт внутри чата с ботом, поэтому «вернуться к боту» — это просто
+  // закрыть его. Ссылки вида t.me внутри своего же мини-аппа Телеграм игнорирует.
+  function backToBot(hint){
+    if(hint) { tgAlert(hint); }
+    setTimeout(() => {
+      try{
+        if(window.Telegram && Telegram.WebApp && Telegram.WebApp.close){ Telegram.WebApp.close(); return; }
+      }catch(e){}
+      window.open('https://t.me/' + BOT_USERNAME, '_blank');
+    }, hint ? 400 : 0);
+  }
+
+  // Отправка данных боту работает, только если приложение открыто с кнопки
+  // «Дневник» на клавиатуре. С кнопки меню Телеграм такой канал не даёт.
+  function canSendData(){
+    try{ return !!(window.Telegram && Telegram.WebApp && Telegram.WebApp.sendData && Telegram.WebApp.initData); }
+    catch(e){ return false; }
+  }
+  function sendToBot(payloadObj, fallbackHint){
     try{
-      if(window.Telegram && Telegram.WebApp && Telegram.WebApp.openTelegramLink){
-        Telegram.WebApp.openTelegramLink(url);
-        return;
+      if(canSendData()){
+        Telegram.WebApp.sendData(JSON.stringify(payloadObj));
+        return true;
       }
     }catch(e){}
-    window.open(url, '_blank');
+    tgAlert(fallbackHint);
+    return false;
   }
 
   function renderSyncBar(){
@@ -432,15 +450,7 @@
   function sendPendingOps(){
     const ops = loadPendingOps();
     if(!ops.length) return;
-    const payload = JSON.stringify({ v: 1, ops });
-    // Если приложение открыто с кнопки клавиатуры, данные уходят боту напрямую.
-    try{
-      if(window.Telegram && Telegram.WebApp && Telegram.WebApp.sendData){
-        Telegram.WebApp.sendData(payload);
-        return;
-      }
-    }catch(e){ /* не тот способ запуска — уходим в переписку */ }
-    openBotChat('APP ' + payload);
+    sendToBot({ v: 1, ops }, 'Чтобы отправить правки боту, открой дневник кнопкой «Дневник» на клавиатуре в чате, а не через меню. Пока правки сохранены в приложении и не потеряются.');
   }
 
   // ===== форма добавления и правки записи =====
@@ -610,22 +620,18 @@
   let GOALS, HABITS, CYCLE, DAYS, today, todayKey;
   let selectedHistoryDate, periodMode='week', weekOffset=0, monthOffset=0, selectedWeekIndex=3;
 
-  function generateSyntheticDay(dateKey){
-    const c = Math.round(1600 + seededRand(dateKey+'c')*900);
-    const p = Math.round(80 + seededRand(dateKey+'p')*70);
-    const f = Math.round(45 + seededRand(dateKey+'f')*45);
-    const cb = Math.round(160 + seededRand(dateKey+'cb')*140);
-    const water = Math.round(1000 + seededRand(dateKey+'w')*1400);
-    const steps = Math.round(2500 + seededRand(dateKey+'s')*10000);
-    return { c, p, f, cb, water, steps, hasDetail:false, entries:[] };
+  // Дни без записей показываются пустыми: в дневнике только реальные данные,
+  // придуманных цифр здесь нет.
+  function emptyDay(){
+    return { c:0, p:0, f:0, cb:0, water:0, steps:0, hasDetail:false, entries:[] };
   }
   function getDayAggregate(dateKey){
     if(DAYS[dateKey]){
       const t = dayTotals(DAYS[dateKey].entries);
       const water = (dateKey === todayKey) ? HABITS.waterCurrent : (DAYS[dateKey].water || 0);
-      return { c:t.c, p:t.p, f:t.f, cb:t.cb, water, steps: DAYS[dateKey].steps, hasDetail:true, entries: DAYS[dateKey].entries };
+      return { c:t.c, p:t.p, f:t.f, cb:t.cb, water, steps: DAYS[dateKey].steps || 0, hasDetail:true, entries: DAYS[dateKey].entries };
     }
-    return generateSyntheticDay(dateKey);
+    return emptyDay();
   }
 
   function goalsChecklist(){
@@ -671,6 +677,19 @@
         </div>
       </div>
       <button class="add-btn" id="addEntryBtn">+ Добавить приём пищи</button>
+      <div class="card" style="padding:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div>
+            <div class="eyebrow">Вода</div>
+            <div style="font-size:17px;font-weight:700;">${(HABITS.waterCurrent/1000).toFixed(2)} <span style="font-size:12px;color:var(--ink-soft);font-weight:600;">/ ${(GOALS.water/1000).toFixed(1)} л</span></div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button id="waterMinusToday" style="border:1px solid var(--line);background:#fff;border-radius:12px;width:44px;height:44px;font-size:20px;color:var(--ink-soft);cursor:pointer;">−</button>
+            <button id="waterPlusToday" style="border:none;border-radius:12px;padding:0 16px;height:44px;font-size:13px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--blue-1),var(--blue-2));cursor:pointer;">+250 мл</button>
+          </div>
+        </div>
+        <div class="steps-track"><div class="steps-fill" style="width:${Math.min(100, Math.round((HABITS.waterCurrent/GOALS.water)*100))}%;background:linear-gradient(90deg,var(--blue-1),var(--blue-2));"></div></div>
+      </div>
       ${goalsChecklist()}
       ${mealSectionHtml(dayObj.entries,'breakfast')}
       ${mealSectionHtml(dayObj.entries,'lunch')}
@@ -678,6 +697,16 @@
       ${mealSectionHtml(dayObj.entries,'snack')}
     `;
     document.getElementById('addEntryBtn').addEventListener('click', () => openEntryModal(null));
+    document.getElementById('waterPlusToday').addEventListener('click', () => {
+      HABITS.waterCurrent += 250;
+      recordOp('habits', { waterCurrent: HABITS.waterCurrent, zaryadka: HABITS.zaryadka, sleepHours: HABITS.sleepHours });
+      renderAll();
+    });
+    document.getElementById('waterMinusToday').addEventListener('click', () => {
+      HABITS.waterCurrent = Math.max(0, HABITS.waterCurrent - 250);
+      recordOp('habits', { waterCurrent: HABITS.waterCurrent, zaryadka: HABITS.zaryadka, sleepHours: HABITS.sleepHours });
+      renderAll();
+    });
     document.getElementById('stepsCard').addEventListener('click', () => {
       const cur = DAYS[todayKey].steps || 0;
       const val = prompt('Сколько шагов за сегодня?', String(cur));
@@ -955,8 +984,14 @@
       const results = document.getElementById('recipeResults');
       if(!val){ results.innerHTML = `<div class="recipe-empty">Напиши хотя бы один ингредиент, чтобы бот начал поиск.</div>`; return; }
       // Рецепты подбирает бот: у него есть и интернет, и остаток калорий за день.
-      results.innerHTML = `<span class="recipe-badge">Запрос ушёл боту: ${escapeHtml(val)}</span><div class="recipe-empty">Ответ придёт в чат с ботом.</div>`;
-      openBotChat('Что приготовить из: ' + val);
+      const sent = sendToBot({ v:1, ops:[{ id:'r'+Date.now().toString(36), type:'recipes', payload:{ ingredients: val } }] },
+        'Закрываю дневник — напиши боту в чат, что есть в холодильнике, он подберёт рецепты.');
+      if(sent){
+        results.innerHTML = `<span class="recipe-badge">Запрос ушёл боту: ${escapeHtml(val)}</span><div class="recipe-empty">Ответ придёт в чат с ботом.</div>`;
+      } else {
+        results.innerHTML = `<div class="recipe-empty">Ответ придёт в чат с ботом.</div>`;
+        backToBot('');
+      }
     });
   }
 
@@ -971,8 +1006,8 @@
     });
   });
 
-  document.getElementById('btnVoice').addEventListener('click', () => openBotChat('Записываю голосовое: что съела'));
-  document.getElementById('btnPhoto').addEventListener('click', () => openBotChat(''));
+  document.getElementById('btnVoice').addEventListener('click', () => backToBot('Закрываю дневник — запиши голосовое боту, он всё внесёт сам.'));
+  document.getElementById('btnPhoto').addEventListener('click', () => backToBot('Закрываю дневник — пришли боту фото тарелки.'));
 
   function showPlaceholder(){ document.getElementById('placeholder').classList.remove('hidden'); document.getElementById('mainRoot').classList.add('hidden'); document.getElementById('tabbar').classList.add('hidden'); }
   function showMain(){ document.getElementById('placeholder').classList.add('hidden'); document.getElementById('mainRoot').classList.remove('hidden'); document.getElementById('tabbar').classList.remove('hidden'); }
