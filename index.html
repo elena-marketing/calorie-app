@@ -224,9 +224,10 @@
   .hb-fill{width:100%;border-radius:5px;transition:height .5s ease;}
   .hb-fill.water{background:linear-gradient(180deg,var(--blue-2),var(--blue-1));}
   .hb-fill.steps{background:linear-gradient(180deg,var(--purple-2),var(--purple-1));}
-  .hb-zar{width:16px;height:16px;border-radius:50%;background:var(--line);margin:6px 0 2px;display:flex;align-items:center;justify-content:center;}
-  .hb-zar.on{background:linear-gradient(135deg,var(--green-1),var(--green-2));}
-  .hb-zar svg{width:10px;height:10px;}
+  .hb-fill.zar{background:linear-gradient(180deg,var(--green-2),var(--green-1));}
+  .streak{display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:16px;padding:12px 14px;margin-top:4px;}
+  .streak-num{font-size:26px;font-weight:800;color:var(--green-2);line-height:1;}
+  .streak-text{font-size:12px;color:var(--ink-soft);font-weight:600;line-height:1.4;}
 </style>
 </head>
 <body>
@@ -924,11 +925,12 @@
         <div class="habit-bars">
           <div class="hb-track"><div class="hb-fill water" style="height:${wPct}%"></div></div>
           <div class="hb-track"><div class="hb-fill steps" style="height:${sPct}%"></div></div>
+          <div class="hb-track"><div class="hb-fill zar" style="height:${zar ? 100 : 0}%"></div></div>
         </div>
-        <div class="hb-zar ${zar ? 'on' : ''}">${zar ? CHECK_SVG : ''}</div>
         <div class="week-label">${dow}<span class="kcal">${wPct}% · ${sPct}%</span></div>
       </div>`;
     }).join('');
+    const streak = zaryadkaStreak();
     return `
       <div class="section-title"><span>Вода, активность и зарядка</span></div>
       <div class="card">
@@ -938,8 +940,27 @@
           <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--purple-1),var(--purple-2));"></div>Активность</div>
           <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--green-1),var(--green-2));"></div>Зарядка</div>
         </div>
+        <div class="streak">
+          <div class="streak-num">${streak.days}</div>
+          <div class="streak-text">${streak.days ? plural(streak.days,'день подряд с зарядкой','дня подряд с зарядкой','дней подряд с зарядкой') : 'дней подряд с зарядкой'}${streak.pending ? ' · сегодня ещё не отмечена' : ''}</div>
+        </div>
         <div class="hint">Столбики показывают, сколько процентов дневной нормы закрыто. Линия сверху — сама норма.</div>
       </div>`;
+  }
+
+  // Серия считается назад от сегодня. Если сегодня зарядки ещё не было,
+  // серия не рвётся: день не закончился, просто помечаем это отдельно.
+  function zaryadkaStreak(){
+    const done = (key) => (key === todayKey) ? !!HABITS.zaryadka : !!(DAYS[key] && DAYS[key].zaryadka);
+    const pending = !done(todayKey);
+    let days = 0;
+    for(let i = pending ? 1 : 0; i < 400; i++){
+      const key = ymd(addDays(today, -i));
+      if(!DAYS[key] && key !== todayKey) break;
+      if(!done(key)) break;
+      days++;
+    }
+    return { days, pending };
   }
 
   function renderHistory(){
