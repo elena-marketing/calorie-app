@@ -661,7 +661,7 @@
   }
 
   // ===== state populated after fetch =====
-  let GOALS, HABITS, CYCLE, DAYS, today, todayKey;
+  let GOALS, HABITS, CYCLE, DAYS, today, todayKey, RECIPES = [];
   let selectedHistoryDate, periodMode='week', weekOffset=0, monthOffset=0, selectedWeekIndex=3;
 
   // Дни без записей показываются пустыми: в дневнике только реальные данные,
@@ -1030,6 +1030,23 @@
     if(dateFilterEl){ dateFilterEl.addEventListener('change', (e) => { selectedHistoryDate = e.target.value; renderHistory(); }); }
   }
 
+  function savedRecipesHtml(){
+    const list = (RECIPES || []).slice().reverse();
+    if(!list.length){
+      return `<div class="card" id="recipeResults"><div class="recipe-empty">Пока пусто. Впиши, что есть под рукой, и бот подберёт варианты — они сохранятся здесь.</div></div>`;
+    }
+    return list.map(r => `
+      <div class="card">
+        <span class="recipe-badge">${escapeHtml(r.date || '')} · ${escapeHtml(r.ingredients || '')}</span>
+        ${(r.items || []).map(it => `
+          <div class="recipe-card">
+            <div class="r-title">${escapeHtml(it.title || '')}</div>
+            <div class="r-meta">${escapeHtml(it.time || '')}${it.calories ? ' · ≈' + it.calories + ' ккал' : ''}</div>
+            <div class="r-desc">${escapeHtml(it.desc || '')}</div>
+          </div>`).join('')}
+      </div>`).join('');
+  }
+
   function renderRecipes(){
     document.getElementById('recipesContent').innerHTML = `
       <div class="card">
@@ -1037,22 +1054,17 @@
           <textarea id="ingredientsInput" placeholder="Например: яйца, шпинат, творог, помидоры"></textarea>
           <button class="recipe-btn" id="findRecipesBtn">Найти идеи</button>
         </div>
+        <div class="hint">Дневник закроется, бот пришлёт рецепты в чат и сохранит их здесь.</div>
       </div>
-      <div class="card" id="recipeResults"><div class="recipe-empty">Впиши, что есть под рукой — бот подберёт варианты из интернета.</div></div>
+      ${savedRecipesHtml()}
     `;
     document.getElementById('findRecipesBtn').addEventListener('click', () => {
       const val = document.getElementById('ingredientsInput').value.trim();
-      const results = document.getElementById('recipeResults');
-      if(!val){ results.innerHTML = `<div class="recipe-empty">Напиши хотя бы один ингредиент, чтобы бот начал поиск.</div>`; return; }
+      if(!val){ tgAlert('Напиши хотя бы один продукт.'); return; }
       // Рецепты подбирает бот: у него есть и интернет, и остаток калорий за день.
       const sent = sendToBot({ v:1, ops:[{ id:'r'+Date.now().toString(36), type:'recipes', payload:{ ingredients: val } }] },
         'Закрываю дневник — напиши боту в чат, что есть в холодильнике, он подберёт рецепты.');
-      if(sent){
-        results.innerHTML = `<span class="recipe-badge">Запрос ушёл боту: ${escapeHtml(val)}</span><div class="recipe-empty">Ответ придёт в чат с ботом.</div>`;
-      } else {
-        results.innerHTML = `<div class="recipe-empty">Ответ придёт в чат с ботом.</div>`;
-        backToBot('');
-      }
+      if(!sent) backToBot('');
     });
   }
 
@@ -1079,6 +1091,7 @@
         HABITS = json.habits;
         CYCLE = json.cycle;
         DAYS = json.days;
+        RECIPES = json.recipes || [];
         today = json.today ? new Date(json.today) : new Date();
         todayKey = ymd(today);
         if(!DAYS[todayKey]) DAYS[todayKey] = { steps: 0, entries: [] };
