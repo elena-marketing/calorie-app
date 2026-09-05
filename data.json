@@ -24,66 +24,331 @@
       "steps": 8700,
       "water": 1800,
       "entries": [
-        { "time": "08:00", "meal": "breakfast", "source": "voice", "title": "Гречка с молоком", "detail": "порция 250 г", "calories": 320, "protein": 12, "fat": 6, "carbs": 54 },
-        { "time": "13:30", "meal": "lunch", "source": "photo", "title": "Борщ с говядиной и хлебом", "detail": "тарелка + кусок хлеба", "calories": 480, "protein": 28, "fat": 18, "carbs": 52 },
-        { "time": "19:10", "meal": "dinner", "source": "voice", "title": "Творог с ягодами", "detail": "200 г творога", "calories": 240, "protein": 26, "fat": 6, "carbs": 16 }
+        {
+          "time": "08:00",
+          "meal": "breakfast",
+          "source": "voice",
+          "title": "Гречка с молоком",
+          "detail": "порция 250 г",
+          "calories": 320,
+          "protein": 12,
+          "fat": 6,
+          "carbs": 54,
+          "id": "e72238644"
+        },
+        {
+          "time": "13:30",
+          "meal": "lunch",
+          "source": "photo",
+          "title": "Борщ с говядиной и хлебом",
+          "detail": "тарелка + кусок хлеба",
+          "calories": 480,
+          "protein": 28,
+          "fat": 18,
+          "carbs": 52,
+          "id": "e6ae2f02b"
+        },
+        {
+          "time": "19:10",
+          "meal": "dinner",
+          "source": "voice",
+          "title": "Творог с ягодами",
+          "detail": "200 г творога",
+          "calories": 240,
+          "protein": 26,
+          "fat": 6,
+          "carbs": 16,
+          "id": "e3f2dc135"
+        }
       ]
     },
     "2026-08-31": {
       "steps": 5600,
       "water": 1400,
       "entries": [
-        { "time": "08:20", "meal": "breakfast", "source": "photo", "title": "Сырники со сметаной", "detail": "3 шт с ложкой сметаны", "calories": 360, "protein": 18, "fat": 14, "carbs": 40 },
-        { "time": "14:00", "meal": "lunch", "source": "voice", "title": "Плов с курицей", "detail": "порция 300 г", "calories": 560, "protein": 30, "fat": 20, "carbs": 64 },
-        { "time": "20:00", "meal": "dinner", "source": "photo", "title": "Салат с тунцом", "detail": "тунец, яйцо, листья", "calories": 300, "protein": 25, "fat": 14, "carbs": 12 }
+        {
+          "time": "08:20",
+          "meal": "breakfast",
+          "source": "photo",
+          "title": "Сырники со сметаной",
+          "detail": "3 шт с ложкой сметаны",
+          "calories": 360,
+          "protein": 18,
+          "fat": 14,
+          "carbs": 40,
+          "id": "ee77659aa"
+        },
+        {
+          "time": "14:00",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Плов с курицей",
+          "detail": "порция 300 г",
+          "calories": 560,
+          "protein": 30,
+          "fat": 20,
+          "carbs": 64,
+          "id": "e3375b3e2"
+        },
+        {
+          "time": "20:00",
+          "meal": "dinner",
+          "source": "photo",
+          "title": "Салат с тунцом",
+          "detail": "тунец, яйцо, листья",
+          "calories": 300,
+          "protein": 25,
+          "fat": 14,
+          "carbs": 12,
+          "id": "ef164960d"
+        }
       ]
     },
     "2026-09-01": {
       "steps": 11200,
       "water": 2200,
       "entries": [
-        { "time": "07:50", "meal": "breakfast", "source": "voice", "title": "Омлет с овощами", "detail": "2 яйца, перец, лук", "calories": 280, "protein": 19, "fat": 18, "carbs": 8 },
-        { "time": "13:10", "meal": "lunch", "source": "photo", "title": "Гречка с курицей", "detail": "150 г курицы, 150 г гречки", "calories": 480, "protein": 34, "fat": 10, "carbs": 55 },
-        { "time": "19:40", "meal": "dinner", "source": "voice", "title": "Овощное рагу с фасолью", "detail": "тарелка", "calories": 320, "protein": 16, "fat": 9, "carbs": 44 }
+        {
+          "time": "07:50",
+          "meal": "breakfast",
+          "source": "voice",
+          "title": "Омлет с овощами",
+          "detail": "2 яйца, перец, лук",
+          "calories": 280,
+          "protein": 19,
+          "fat": 18,
+          "carbs": 8,
+          "id": "ede7fa031"
+        },
+        {
+          "time": "13:10",
+          "meal": "lunch",
+          "source": "photo",
+          "title": "Гречка с курицей",
+          "detail": "150 г курицы, 150 г гречки",
+          "calories": 480,
+          "protein": 34,
+          "fat": 10,
+          "carbs": 55,
+          "id": "eda8a1a7b"
+        },
+        {
+          "time": "19:40",
+          "meal": "dinner",
+          "source": "voice",
+          "title": "Овощное рагу с фасолью",
+          "detail": "тарелка",
+          "calories": 320,
+          "protein": 16,
+          "fat": 9,
+          "carbs": 44,
+          "id": "ef7226c0c"
+        }
       ]
     },
     "2026-09-02": {
       "steps": 4200,
       "water": 1100,
       "entries": [
-        { "time": "09:00", "meal": "breakfast", "source": "photo", "title": "Тосты с арахисовой пастой", "detail": "2 тоста", "calories": 350, "protein": 12, "fat": 18, "carbs": 38 },
-        { "time": "14:20", "meal": "lunch", "source": "voice", "title": "Суп-пюре с креветками", "detail": "тарелка", "calories": 340, "protein": 22, "fat": 12, "carbs": 28 },
-        { "time": "20:30", "meal": "dinner", "source": "photo", "title": "Паста карбонара", "detail": "порция 280 г", "calories": 520, "protein": 22, "fat": 24, "carbs": 54 }
+        {
+          "time": "09:00",
+          "meal": "breakfast",
+          "source": "photo",
+          "title": "Тосты с арахисовой пастой",
+          "detail": "2 тоста",
+          "calories": 350,
+          "protein": 12,
+          "fat": 18,
+          "carbs": 38,
+          "id": "e1adc3a67"
+        },
+        {
+          "time": "14:20",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Суп-пюре с креветками",
+          "detail": "тарелка",
+          "calories": 340,
+          "protein": 22,
+          "fat": 12,
+          "carbs": 28,
+          "id": "e1f69796c"
+        },
+        {
+          "time": "20:30",
+          "meal": "dinner",
+          "source": "photo",
+          "title": "Паста карбонара",
+          "detail": "порция 280 г",
+          "calories": 520,
+          "protein": 22,
+          "fat": 24,
+          "carbs": 54,
+          "id": "e8895696f"
+        }
       ]
     },
     "2026-09-03": {
       "steps": 9600,
       "water": 1900,
       "entries": [
-        { "time": "08:10", "meal": "breakfast", "source": "voice", "title": "Овсянка с ягодами", "detail": "на воде, с малиной", "calories": 300, "protein": 10, "fat": 7, "carbs": 52 },
-        { "time": "13:45", "meal": "lunch", "source": "photo", "title": "Рыба с картофелем", "detail": "150 г рыбы, 150 г картофеля", "calories": 460, "protein": 32, "fat": 14, "carbs": 48 },
-        { "time": "19:15", "meal": "dinner", "source": "voice", "title": "Салат Цезарь с курицей", "detail": "без сухариков", "calories": 380, "protein": 28, "fat": 20, "carbs": 16 }
+        {
+          "time": "08:10",
+          "meal": "breakfast",
+          "source": "voice",
+          "title": "Овсянка с ягодами",
+          "detail": "на воде, с малиной",
+          "calories": 300,
+          "protein": 10,
+          "fat": 7,
+          "carbs": 52,
+          "id": "e791d26f5"
+        },
+        {
+          "time": "13:45",
+          "meal": "lunch",
+          "source": "photo",
+          "title": "Рыба с картофелем",
+          "detail": "150 г рыбы, 150 г картофеля",
+          "calories": 460,
+          "protein": 32,
+          "fat": 14,
+          "carbs": 48,
+          "id": "e70400c1a"
+        },
+        {
+          "time": "19:15",
+          "meal": "dinner",
+          "source": "voice",
+          "title": "Салат Цезарь с курицей",
+          "detail": "без сухариков",
+          "calories": 380,
+          "protein": 28,
+          "fat": 20,
+          "carbs": 16,
+          "id": "e0b179617"
+        }
       ]
     },
     "2026-09-04": {
       "steps": 7300,
       "water": 1600,
       "entries": [
-        { "time": "08:30", "meal": "breakfast", "source": "photo", "title": "Йогурт с гранолой", "detail": "натуральный йогурт, 30 г гранолы", "calories": 280, "protein": 11, "fat": 9, "carbs": 38 },
-        { "time": "13:50", "meal": "lunch", "source": "voice", "title": "Плов с говядиной", "detail": "порция 300 г", "calories": 540, "protein": 28, "fat": 22, "carbs": 58 },
-        { "time": "19:50", "meal": "dinner", "source": "photo", "title": "Куриный суп с лапшой", "detail": "тарелка", "calories": 260, "protein": 18, "fat": 8, "carbs": 28 }
+        {
+          "time": "08:30",
+          "meal": "breakfast",
+          "source": "photo",
+          "title": "Йогурт с гранолой",
+          "detail": "натуральный йогурт, 30 г гранолы",
+          "calories": 280,
+          "protein": 11,
+          "fat": 9,
+          "carbs": 38,
+          "id": "e65d633bd"
+        },
+        {
+          "time": "13:50",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Плов с говядиной",
+          "detail": "порция 300 г",
+          "calories": 540,
+          "protein": 28,
+          "fat": 22,
+          "carbs": 58,
+          "id": "e7bc8febb"
+        },
+        {
+          "time": "19:50",
+          "meal": "dinner",
+          "source": "photo",
+          "title": "Куриный суп с лапшой",
+          "detail": "тарелка",
+          "calories": 260,
+          "protein": 18,
+          "fat": 8,
+          "carbs": 28,
+          "id": "e5362e9b0"
+        }
       ]
     },
     "2026-09-05": {
       "steps": 6340,
       "entries": [
-        { "time": "08:12", "meal": "breakfast", "source": "voice", "title": "Омлет из двух яиц", "detail": "с сыром и помидором", "calories": 310, "protein": 21, "fat": 22, "carbs": 6 },
-        { "time": "08:40", "meal": "breakfast", "source": "photo", "title": "Овсянка с бананом", "detail": "на молоке, с мёдом", "calories": 380, "protein": 12, "fat": 8, "carbs": 65 },
-        { "time": "13:10", "meal": "lunch", "source": "photo", "title": "Куриная грудка с рисом", "detail": "150 г курицы, 120 г риса, овощи", "calories": 520, "protein": 38, "fat": 9, "carbs": 61 },
-        { "time": "13:40", "meal": "lunch", "source": "voice", "title": "Греческий йогурт", "detail": "с орехами и ягодами", "calories": 210, "protein": 7, "fat": 3, "carbs": 23 },
-        { "time": "15:30", "meal": "lunch", "source": "voice", "title": "Начинка от 2 фаршированных кабачков со сметаной", "detail": "кабачки не ела, только мясо + 2 ст. л. сметаны, примерно", "calories": 400, "protein": 24, "fat": 28, "carbs": 9 },
-        { "time": "19:20", "meal": "dinner", "source": "photo", "title": "Лосось с овощами", "detail": "150 г лосося, брокколи, кабачок", "calories": 430, "protein": 34, "fat": 22, "carbs": 14 }
+        {
+          "time": "08:12",
+          "meal": "breakfast",
+          "source": "voice",
+          "title": "Омлет из двух яиц",
+          "detail": "с сыром и помидором",
+          "calories": 310,
+          "protein": 21,
+          "fat": 22,
+          "carbs": 6,
+          "id": "ee50ea652"
+        },
+        {
+          "time": "08:40",
+          "meal": "breakfast",
+          "source": "photo",
+          "title": "Овсянка с бананом",
+          "detail": "на молоке, с мёдом",
+          "calories": 380,
+          "protein": 12,
+          "fat": 8,
+          "carbs": 65,
+          "id": "ed1091ac1"
+        },
+        {
+          "time": "13:10",
+          "meal": "lunch",
+          "source": "photo",
+          "title": "Куриная грудка с рисом",
+          "detail": "150 г курицы, 120 г риса, овощи",
+          "calories": 520,
+          "protein": 38,
+          "fat": 9,
+          "carbs": 61,
+          "id": "ec2d7f499"
+        },
+        {
+          "time": "13:40",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Греческий йогурт",
+          "detail": "с орехами и ягодами",
+          "calories": 210,
+          "protein": 7,
+          "fat": 3,
+          "carbs": 23,
+          "id": "e8b366d0d"
+        },
+        {
+          "time": "15:30",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Начинка от 2 фаршированных кабачков со сметаной",
+          "detail": "кабачки не ела, только мясо + 2 ст. л. сметаны, примерно",
+          "calories": 400,
+          "protein": 24,
+          "fat": 28,
+          "carbs": 9,
+          "id": "ec686021d"
+        },
+        {
+          "time": "19:20",
+          "meal": "dinner",
+          "source": "photo",
+          "title": "Лосось с овощами",
+          "detail": "150 г лосося, брокколи, кабачок",
+          "calories": 430,
+          "protein": 34,
+          "fat": 22,
+          "carbs": 14,
+          "id": "e5dfeb9aa"
+        }
       ]
     }
-  }
+  },
+  "appliedOps": []
 }
