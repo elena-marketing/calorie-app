@@ -368,7 +368,7 @@
   function recordOp(type, payload){
     const ops = loadPendingOps();
     ops.push({ id: 'o' + Date.now().toString(36) + Math.random().toString(36).slice(2,6), ts: Date.now(), type, payload });
-    savePendingOps(ops);
+    savePendingOps(compactOps(ops));
     renderSyncBar();
     scheduleAutoSync();
   }
@@ -473,14 +473,39 @@
     catch(e){ return false; }
   }
   function sendToBot(payloadObj, fallbackHint){
+    // Телеграм принимает не больше 4096 байт и только из приложения,
+    // открытого кнопкой на клавиатуре. Поэтому сначала ужимаем список правок.
+    let body = JSON.stringify(payloadObj);
+    if(payloadObj.ops && body.length > 3800){
+      payloadObj = { v: payloadObj.v, ops: compactOps(payloadObj.ops) };
+      body = JSON.stringify(payloadObj);
+      while(payloadObj.ops.length > 1 && body.length > 3800){
+        payloadObj.ops.shift();
+        body = JSON.stringify(payloadObj);
+      }
+    }
     try{
       if(canSendData()){
-        Telegram.WebApp.sendData(JSON.stringify(payloadObj));
+        Telegram.WebApp.sendData(body);
         return true;
       }
     }catch(e){}
     tgAlert(fallbackHint);
     return false;
+  }
+
+  // Из очереди оставляем только то, что реально нужно боту: последнее значение
+  // привычек, шагов и цикла за день и последнюю версию каждой записи о еде.
+  function compactOps(ops){
+    const latest = new Map();
+    (ops || []).forEach(op => {
+      const p = op.payload || {};
+      let key;
+      if(op.type === 'entry' || op.type === 'deleteEntry') key = 'e:' + (p.entry ? p.entry.id : p.entryId);
+      else key = op.type + ':' + (p.date || '');
+      latest.set(key, op);
+    });
+    return [...latest.values()];
   }
 
   // Полоска внизу — только статус, нажимать её не нужно.
@@ -503,8 +528,9 @@
       el.className = 'sync-status error';
       const link = document.getElementById('sendViaBot');
       if(link) link.addEventListener('click', () => {
-        sendToBot({ v: 1, ops: loadPendingOps() },
-          'Не получается отправить. Открой дневник кнопкой «Дневник» на клавиатуре.');
+        const ok = sendToBot({ v: 1, ops: loadPendingOps() },
+          'Отправить не удалось. Открой дневник кнопкой «Дневник» на клавиатуре внизу чата, а не из меню бота.');
+        if(!ok) console.warn('sendData недоступен');
       });
     }
     else { el.textContent = 'Сохраняю…'; el.className = 'sync-status saving'; }
