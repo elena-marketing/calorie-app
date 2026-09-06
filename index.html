@@ -622,12 +622,23 @@
   ];
   const MEAL_LABELS = { breakfast:'Завтрак', lunch:'Обед', dinner:'Ужин', snack:'Перекус' };
 
-  function ymd(d){ return d.toISOString().slice(0,10); }
+  // Ключ дня считаем по местному времени, а не по UTC: иначе в Москве
+  // сутки в приложении переключались бы в три часа ночи, а не в полночь.
+  function ymd(d){
+    const p = (n) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+  }
+  // Строку «2026-09-06» браузер разбирает как полночь по UTC, поэтому
+  // разбираем вручную и получаем полночь по местному времени.
+  function parseKey(key){
+    const [y, m, d] = String(key).split('-').map(Number);
+    return new Date(y, (m || 1) - 1, d || 1);
+  }
   function addDays(d, n){ const r = new Date(d); r.setDate(r.getDate()+n); return r; }
   function escapeHtml(str){ const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
   function formatDateFull(d){ const w = WEEKDAYS[d.getDay()]; return `${w[0].toUpperCase()}${w.slice(1)}, ${d.getDate()} ${MONTHS[d.getMonth()]}`; }
   function shortRange(startKey, endKey){
-    const s = new Date(startKey), e = new Date(endKey);
+    const s = parseKey(startKey), e = parseKey(endKey);
     return `${s.getDate()} ${MONTHS[s.getMonth()].slice(0,3)} – ${e.getDate()} ${MONTHS[e.getMonth()].slice(0,3)}`;
   }
   function hashCode(str){ let h=0; for(let i=0;i<str.length;i++){ h=(h<<5)-h+str.charCodeAt(i); h|=0; } return h; }
@@ -760,7 +771,7 @@
   }
 
   function cycleDayInfo(){
-    const start = new Date(CYCLE.lastPeriodStart);
+    const start = parseKey(CYCLE.lastPeriodStart);
     const diffDays = Math.floor((today - start) / 86400000);
     let dayInCycle = ((diffDays % CYCLE.cycleLength) + CYCLE.cycleLength) % CYCLE.cycleLength + 1;
     const ovulationDay = CYCLE.cycleLength - 14;
@@ -774,7 +785,7 @@
   let cycleMonthOffset = 0;
 
   function renderCalendarGrid(){
-    const start = new Date(CYCLE.lastPeriodStart);
+    const start = parseKey(CYCLE.lastPeriodStart);
     const shown = new Date(today.getFullYear(), today.getMonth() + cycleMonthOffset, 1);
     const y = shown.getFullYear(), m = shown.getMonth();
     const firstDay = new Date(y, m, 1);
@@ -901,7 +912,7 @@
       day.water = HABITS.waterCurrent;
       day.zaryadka = HABITS.zaryadka;
       day.sleepHours = HABITS.sleepHours;
-      recordOp('habits', { waterCurrent: HABITS.waterCurrent, zaryadka: HABITS.zaryadka, sleepHours: HABITS.sleepHours });
+      recordOp('habits', { date: todayKey, waterCurrent: HABITS.waterCurrent, zaryadka: HABITS.zaryadka, sleepHours: HABITS.sleepHours });
       renderAll();
     };
     document.getElementById('waterPlus').addEventListener('click', () => { HABITS.waterCurrent += 250; saveHabits(); });
@@ -920,7 +931,7 @@
       const zar = (k === todayKey) ? HABITS.zaryadka : !!day.zaryadka;
       const wPct = Math.min(100, Math.round((agg.water / GOALS.water) * 100));
       const sPct = Math.min(100, Math.round((agg.steps / GOALS.steps) * 100));
-      const dow = WEEKDAYS_SHORT[new Date(k).getDay()];
+      const dow = WEEKDAYS_SHORT[parseKey(k).getDay()];
       return `<div class="habit-col">
         <div class="habit-bars">
           <div class="hb-track"><div class="hb-fill water" style="height:${wPct}%"></div></div>
@@ -979,7 +990,7 @@
       const cols = aggs.map(d => {
         const pKcal=d.p*4, fKcal=d.f*9, cKcal=d.cb*4; const mt=pKcal+fKcal+cKcal||1;
         const barH = Math.min(100,(d.c/maxScale)*100);
-        const dow = WEEKDAYS_SHORT[new Date(d.key).getDay()];
+        const dow = WEEKDAYS_SHORT[parseKey(d.key).getDay()];
         const isSel = d.key===selectedHistoryDate;
         const waterOn = d.water>=GOALS.water, stepsOn = d.steps>=GOALS.steps;
         return `<div class="week-col" data-date="${d.key}">
@@ -1041,7 +1052,7 @@
         <div class="legend"><div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--pink-1),var(--pink-2));"></div>Белки</div><div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--orange-1),var(--orange-2));"></div>Жиры</div><div class="legend-item"><div class="legend-dot" style="background:linear-gradient(90deg,var(--green-1),var(--green-2));"></div>Углеводы</div></div>
         <div class="legend"><div class="legend-item"><div class="ind-dot water on" style="width:12px;height:12px;">${DROP_SVG}</div>Средняя норма воды</div><div class="legend-item"><div class="ind-dot steps on" style="width:12px;height:12px;">${BOLT_SVG}</div>Средняя активность</div></div>`;
       const sel = buckets.find(b=>b.idx===selectedWeekIndex) || buckets[3];
-      const selKeys = []; for(let i=0;i<7;i++) selKeys.push(ymd(addDays(new Date(sel.startKey), i)));
+      const selKeys = []; for(let i=0;i<7;i++) selKeys.push(ymd(addDays(parseKey(sel.startKey), i)));
       habitsHtml = habitsChartHtml(selKeys);
     }
     document.getElementById('historyContent').innerHTML = `
@@ -1126,9 +1137,18 @@
         CYCLE = json.cycle;
         DAYS = json.days;
         RECIPES = json.recipes || [];
-        today = json.today ? new Date(json.today) : new Date();
+        // Сутки определяем по часам телефона: файл может отставать на день и больше.
+        today = new Date();
         todayKey = ymd(today);
-        if(!DAYS[todayKey]) DAYS[todayKey] = { steps: 0, entries: [] };
+        if(!DAYS[todayKey]) DAYS[todayKey] = { steps: 0, water: 0, entries: [] };
+        // Привычки — это показатели конкретного дня, а не общий счётчик:
+        // в новых сутках они начинаются с нуля.
+        const td = DAYS[todayKey];
+        HABITS = {
+          waterCurrent: td.water || 0,
+          zaryadka: !!td.zaryadka,
+          sleepHours: td.sleepHours || 0
+        };
         selectedHistoryDate = todayKey;
         dropAppliedOps(json.appliedOps || []);
         applyPendingOps();

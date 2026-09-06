@@ -1,5 +1,5 @@
 {
-  "today": "2026-09-05",
+  "today": "2026-09-06",
   "goals": {
     "calories": 2100,
     "protein": 130,
@@ -85,6 +85,11 @@
           "id": "e05dinner1"
         }
       ]
+    },
+    "2026-09-06": {
+      "steps": 0,
+      "water": 0,
+      "entries": []
     }
   },
   "appliedOps": [
