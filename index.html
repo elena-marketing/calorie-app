@@ -367,7 +367,7 @@
   }
   function recordOp(type, payload){
     const ops = loadPendingOps();
-    ops.push({ id: 'o' + Date.now().toString(36) + Math.random().toString(36).slice(2,6), type, payload });
+    ops.push({ id: 'o' + Date.now().toString(36) + Math.random().toString(36).slice(2,6), ts: Date.now(), type, payload });
     savePendingOps(ops);
     renderSyncBar();
     scheduleAutoSync();
@@ -421,13 +421,22 @@
     savePendingOps(loadPendingOps().filter(op => !set.has(op.id)));
   }
   function applyPendingOps(){
-    loadPendingOps().forEach(op => {
+    // Правки старше двух суток и привычки за прошедшие дни не применяем:
+    // иначе вчерашняя вода и зарядка «переезжают» в новый день.
+    const fresh = loadPendingOps().filter(op => {
+      if(op.ts && (Date.now() - op.ts) > 2 * 86400000) return false;
+      if(op.type === 'habits' && (op.payload || {}).date !== todayKey) return false;
+      return true;
+    });
+    if(fresh.length !== loadPendingOps().length) savePendingOps(fresh);
+    fresh.forEach(op => {
       const p = op.payload || {};
       if(op.type === 'steps'){
         if(!DAYS[p.date]) DAYS[p.date] = { steps: 0, entries: [] };
         DAYS[p.date].steps = p.steps;
       } else if(op.type === 'habits'){
-        Object.assign(HABITS, p);
+        const { date, ...vals } = p;
+        Object.assign(HABITS, vals);
       } else if(op.type === 'goals'){
         Object.assign(GOALS, p);
       } else if(op.type === 'cycle'){
@@ -489,8 +498,14 @@
       setTimeout(() => { if(!loadPendingOps().length){ bar.classList.add('hidden'); } }, 2500);
     }
     else if(syncState === 'error'){
-      el.textContent = 'Нет связи, ' + n + ' ' + plural(n,'правка','правки','правок') + ' ждут';
+      el.innerHTML = 'Нет связи, ' + n + ' ' + plural(n,'правка','правки','правок') +
+        ' ждут · <span id="sendViaBot" style="text-decoration:underline;">отправить через бота</span>';
       el.className = 'sync-status error';
+      const link = document.getElementById('sendViaBot');
+      if(link) link.addEventListener('click', () => {
+        sendToBot({ v: 1, ops: loadPendingOps() },
+          'Не получается отправить. Открой дневник кнопкой «Дневник» на клавиатуре.');
+      });
     }
     else { el.textContent = 'Сохраняю…'; el.className = 'sync-status saving'; }
   }
