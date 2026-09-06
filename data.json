@@ -178,12 +178,12 @@
           "time": "18:30",
           "meal": "snack",
           "source": "voice",
-          "title": "Пол вафли «Артек»",
-          "detail": "половина вафли (~8 г, целая 16 г)",
-          "calories": 40,
-          "protein": 0,
-          "fat": 2,
-          "carbs": 5,
+          "title": "Вафля «Артек»",
+          "detail": "1 целая вафля (16 г)",
+          "calories": 80,
+          "protein": 1,
+          "fat": 4,
+          "carbs": 10,
           "id": "e06artek01"
         }
       ]
