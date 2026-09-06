@@ -89,7 +89,44 @@
     "2026-09-06": {
       "steps": 0,
       "water": 0,
-      "entries": []
+      "entries": [
+        {
+          "time": "13:35",
+          "meal": "breakfast",
+          "source": "photo",
+          "title": "Блин с мясом и жареным луком",
+          "detail": "1 блин (~50 г) с начинкой из мясного фарша (~50 г) и жареного лука (~15 г); веса оценены по фото",
+          "calories": 250,
+          "protein": 18,
+          "fat": 15,
+          "carbs": 14,
+          "id": "e06blinmt1"
+        },
+        {
+          "time": "13:35",
+          "meal": "breakfast",
+          "source": "photo",
+          "title": "Блинчик с сахаром и сливочным маслом",
+          "detail": "1 блин (~50 г), сливочное масло (~10 г), сахар (~8 г); веса оценены",
+          "calories": 200,
+          "protein": 5,
+          "fat": 13,
+          "carbs": 21,
+          "id": "e06blinsw1"
+        },
+        {
+          "time": "13:35",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Зелёный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e06tea0001"
+        }
+      ]
     }
   },
   "appliedOps": [
