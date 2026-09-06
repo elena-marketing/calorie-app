@@ -125,6 +125,54 @@
           "fat": 0,
           "carbs": 0,
           "id": "e06tea0001"
+        },
+        {
+          "time": "16:05",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Блин с мясом и жареным луком",
+          "detail": "такой же, как на завтрак: блин (~50 г), мясной фарш (~50 г), жареный лук (~15 г)",
+          "calories": 250,
+          "protein": 18,
+          "fat": 15,
+          "carbs": 14,
+          "id": "e06blinmt2"
+        },
+        {
+          "time": "16:05",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Блинчик с творогом, сметаной и сахаром",
+          "detail": "блин (~50 г), творог (~50 г), сметана (~15 г), сахар (~8 г); веса оценены",
+          "calories": 230,
+          "protein": 13,
+          "fat": 13,
+          "carbs": 22,
+          "id": "e06blintv1"
+        },
+        {
+          "time": "16:05",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Чёрный кофе без сахара",
+          "detail": "300 мл",
+          "calories": 4,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e06coffee1"
+        },
+        {
+          "time": "16:05",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Конфета «Ромашка»",
+          "detail": "1 шт (~13 г), примерно",
+          "calories": 55,
+          "protein": 1,
+          "fat": 3,
+          "carbs": 8,
+          "id": "e06romash1"
         }
       ]
     }
