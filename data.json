@@ -10,9 +10,10 @@
     "sleepHours": 7
   },
   "habits": {
-    "waterCurrent": 0,
+    "waterCurrent": 250,
     "zaryadka": false,
-    "sleepHours": 0
+    "sleepHours": 0,
+    "date": "2026-09-06"
   },
   "cycle": {
     "lastPeriodStart": "2026-08-16",
@@ -93,7 +94,8 @@
     }
   },
   "appliedOps": [
-    "otest1"
+    "otest1",
+    "otest2"
   ],
   "recipes": []
 }
