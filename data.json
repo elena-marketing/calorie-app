@@ -92,6 +92,8 @@
       "entries": []
     }
   },
-  "appliedOps": [],
+  "appliedOps": [
+    "ocheck1"
+  ],
   "recipes": []
 }
