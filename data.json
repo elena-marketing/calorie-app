@@ -1,5 +1,5 @@
 {
-  "today": "2026-09-06",
+  "today": "2026-09-07",
   "goals": {
     "calories": 1500,
     "protein": 112,
@@ -20,6 +20,84 @@
     "periodLength": 5
   },
   "days": {
+    "2026-09-07": {
+      "steps": 0,
+      "water": 0,
+      "entries": [
+        {
+          "time": "09:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Блин с мясом и жареным луком",
+          "detail": "такой же, как вчера: блин (~50 г), мясной фарш (~50 г), жареный лук (~15 г)",
+          "calories": 250,
+          "protein": 18,
+          "fat": 15,
+          "carbs": 14,
+          "id": "e07blinmt1"
+        },
+        {
+          "time": "09:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Сметана 20%",
+          "detail": "2 столовые ложки (~40 г)",
+          "calories": 82,
+          "protein": 1,
+          "fat": 8,
+          "carbs": 1,
+          "id": "e07smetan1"
+        },
+        {
+          "time": "09:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Говядина тушёная",
+          "detail": "50 г",
+          "calories": 110,
+          "protein": 8,
+          "fat": 8,
+          "carbs": 0,
+          "id": "e07govjad1"
+        },
+        {
+          "time": "09:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Зелёный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e07tea0001"
+        },
+        {
+          "time": "09:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Печенье савоярди",
+          "detail": "1 шт (~8 г)",
+          "calories": 30,
+          "protein": 1,
+          "fat": 1,
+          "carbs": 6,
+          "id": "e07savoja1"
+        },
+        {
+          "time": "09:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Пряник шоколадный",
+          "detail": "1 шт (~40 г), оценка",
+          "calories": 140,
+          "protein": 2,
+          "fat": 3,
+          "carbs": 27,
+          "id": "e07prjani1"
+        }
+      ]
+    },
     "2026-09-05": {
       "steps": 3200,
       "water": 0,
