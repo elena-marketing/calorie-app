@@ -227,6 +227,18 @@
           "fat": 3,
           "carbs": 27,
           "id": "e07prjani3"
+        },
+        {
+          "time": "23:18",
+          "meal": "snack",
+          "source": "text",
+          "title": "Капучино",
+          "detail": "300 мл, оценка на молоке ~3,2%, без сахара",
+          "calories": 95,
+          "protein": 5,
+          "fat": 5,
+          "carbs": 8,
+          "id": "e07capp001"
         }
       ]
     },
