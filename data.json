@@ -179,6 +179,54 @@
           "fat": 0,
           "carbs": 21,
           "id": "e07apple01"
+        },
+        {
+          "time": "19:06",
+          "meal": "dinner",
+          "source": "text",
+          "title": "Картофель печёный",
+          "detail": "4 шт, оценка ~400 г (средние); без масла",
+          "calories": 373,
+          "protein": 8,
+          "fat": 1,
+          "carbs": 84,
+          "id": "e07bakpot1"
+        },
+        {
+          "time": "19:06",
+          "meal": "dinner",
+          "source": "text",
+          "title": "Чёрный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e07btea001"
+        },
+        {
+          "time": "19:06",
+          "meal": "snack",
+          "source": "text",
+          "title": "Фило-ролл «Пятёрочка Кафе» с лимоном и творогом",
+          "detail": "1 шт 60 г, по этикетке (340 ккал/100 г)",
+          "calories": 204,
+          "protein": 3,
+          "fat": 11,
+          "carbs": 24,
+          "id": "e07filo002"
+        },
+        {
+          "time": "19:06",
+          "meal": "snack",
+          "source": "text",
+          "title": "Пряник шоколадный",
+          "detail": "1 шт (~40 г), оценка",
+          "calories": 140,
+          "protein": 2,
+          "fat": 3,
+          "carbs": 27,
+          "id": "e07prjani3"
         }
       ]
     },
