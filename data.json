@@ -167,6 +167,18 @@
           "fat": 3,
           "carbs": 27,
           "id": "e07prjani2"
+        },
+        {
+          "time": "16:22",
+          "meal": "snack",
+          "source": "text",
+          "title": "Яблоко",
+          "detail": "1 шт среднее (~180 г)",
+          "calories": 85,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 21,
+          "id": "e07apple01"
         }
       ]
     },
