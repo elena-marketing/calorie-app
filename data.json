@@ -107,6 +107,66 @@
           "fat": 11,
           "carbs": 24,
           "id": "e07filo001"
+        },
+        {
+          "time": "14:10",
+          "meal": "lunch",
+          "source": "photo",
+          "title": "Картофель отварной",
+          "detail": "~250 г, порция с тарелку; масло не учтено",
+          "calories": 205,
+          "protein": 5,
+          "fat": 1,
+          "carbs": 46,
+          "id": "e07potato1"
+        },
+        {
+          "time": "14:10",
+          "meal": "lunch",
+          "source": "photo",
+          "title": "Рыбка пряного посола (салака/килька)",
+          "detail": "оценка ~80 г без рассола; вес прикинут на глаз",
+          "calories": 110,
+          "protein": 13,
+          "fat": 6,
+          "carbs": 0,
+          "id": "e07fish001"
+        },
+        {
+          "time": "16:21",
+          "meal": "snack",
+          "source": "text",
+          "title": "Чёрный кофе без сахара",
+          "detail": "примерно 300 мл",
+          "calories": 4,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e07coffee2"
+        },
+        {
+          "time": "16:21",
+          "meal": "snack",
+          "source": "text",
+          "title": "Конфета «Ромашка»",
+          "detail": "1 шт (~13 г)",
+          "calories": 55,
+          "protein": 1,
+          "fat": 3,
+          "carbs": 8,
+          "id": "e07romash2"
+        },
+        {
+          "time": "16:21",
+          "meal": "snack",
+          "source": "text",
+          "title": "Пряник шоколадный",
+          "detail": "1 шт (~40 г), оценка",
+          "calories": 140,
+          "protein": 2,
+          "fat": 3,
+          "carbs": 27,
+          "id": "e07prjani2"
         }
       ]
     },
