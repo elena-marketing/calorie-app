@@ -379,6 +379,7 @@
   let endpointUrl = null;
   let autoSyncTimer = null;
   let syncState = 'idle';   // idle | saving | saved | error
+  let syncError = '';       // почему приёмник отказал: молча теряться правки не должны
 
   function loadEndpoint(){
     return fetch('endpoint.json?v=' + Date.now())
@@ -403,17 +404,19 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ initData, ops })
     })
-      .then(r => r.json())
-      .then(res => {
-        if(res && res.ok){
-          dropAppliedOps(res.applied || ops.map(o => o.id));
+      .then(r => r.json().then(j => ({ status: r.status, body: j })))
+      .then(({ status, body }) => {
+        if(body && body.ok){
+          dropAppliedOps(body.applied || ops.map(o => o.id));
           syncState = 'saved';
+          syncError = '';
         } else {
           syncState = 'error';
+          syncError = (body && body.error) || ('приёмник ответил ' + status);
         }
         renderSyncBar();
       })
-      .catch(() => { syncState = 'error'; renderSyncBar(); });
+      .catch(() => { syncState = 'error'; syncError = 'сервер не отвечает'; renderSyncBar(); });
   }
   function dropAppliedOps(appliedIds){
     if(!appliedIds.length) return;
@@ -421,15 +424,22 @@
     savePendingOps(loadPendingOps().filter(op => !set.has(op.id)));
   }
   function applyPendingOps(){
-    // Правки старше двух суток и привычки за прошедшие дни не применяем:
-    // иначе вчерашняя вода и зарядка «переезжают» в новый день.
-    const fresh = loadPendingOps().filter(op => {
-      if(op.ts && (Date.now() - op.ts) > 2 * 86400000) return false;
-      if(op.type === 'habits' && (op.payload || {}).date !== todayKey) return false;
-      return true;
-    });
-    if(fresh.length !== loadPendingOps().length) savePendingOps(fresh);
+    // Неотправленные правки держим неделю: если синхронизация не прошла вечером,
+    // вода и зарядка того дня должны уйти на сервер позже, а не пропасть.
+    const all = loadPendingOps();
+    const fresh = all.filter(op => !(op.ts && (Date.now() - op.ts) > 7 * 86400000));
+    if(fresh.length !== all.length) savePendingOps(fresh);
     fresh.forEach(op => {
+      // Привычки чужого дня остаются в очереди на отправку, но на экран сегодня
+      // не попадают: иначе вчерашняя вода «переезжает» в новый день.
+      if(op.type === 'habits' && (op.payload || {}).date !== todayKey){
+        const d = (op.payload || {}).date;
+        if(d && DAYS[d]){
+          if(op.payload.waterCurrent !== undefined) DAYS[d].water = op.payload.waterCurrent;
+          if(op.payload.zaryadka !== undefined) DAYS[d].zaryadka = op.payload.zaryadka;
+        }
+        return;
+      }
       const p = op.payload || {};
       if(op.type === 'steps'){
         if(!DAYS[p.date]) DAYS[p.date] = { steps: 0, entries: [] };
@@ -523,8 +533,9 @@
       setTimeout(() => { if(!loadPendingOps().length){ bar.classList.add('hidden'); } }, 2500);
     }
     else if(syncState === 'error'){
-      el.innerHTML = 'Нет связи, ' + n + ' ' + plural(n,'правка','правки','правок') +
-        ' ждут · <span id="sendViaBot" style="text-decoration:underline;">отправить через бота</span>';
+      el.innerHTML = 'Не сохранено, ' + n + ' ' + plural(n,'правка','правки','правок') +
+        ' ждут' + (syncError ? ': ' + syncError : '') +
+        ' · <span id="sendViaBot" style="text-decoration:underline;">отправить через бота</span>';
       el.className = 'sync-status error';
       const link = document.getElementById('sendViaBot');
       if(link) link.addEventListener('click', () => {
