@@ -143,6 +143,54 @@
           "fat": 1,
           "carbs": 0,
           "id": "e08syr0001"
+        },
+        {
+          "time": "18:12",
+          "meal": "snack",
+          "source": "voice",
+          "title": "Горбушка батона",
+          "detail": "34 г, батон нарезной",
+          "calories": 90,
+          "protein": 3,
+          "fat": 1,
+          "carbs": 17,
+          "id": "e08baton1"
+        },
+        {
+          "time": "18:12",
+          "meal": "snack",
+          "source": "voice",
+          "title": "Килька пряного посола",
+          "detail": "5 шт (~55 г), оценка веса",
+          "calories": 75,
+          "protein": 8,
+          "fat": 4,
+          "carbs": 0,
+          "id": "e08kilka1"
+        },
+        {
+          "time": "18:12",
+          "meal": "snack",
+          "source": "voice",
+          "title": "Цикорий",
+          "detail": "300 мл, растворимый без сахара",
+          "calories": 12,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 3,
+          "id": "e08cikor1"
+        },
+        {
+          "time": "18:12",
+          "meal": "snack",
+          "source": "voice",
+          "title": "Печенье савоярди",
+          "detail": "2 шт (~16 г)",
+          "calories": 60,
+          "protein": 2,
+          "fat": 1,
+          "carbs": 12,
+          "id": "e08savoja1"
         }
       ]
     },
