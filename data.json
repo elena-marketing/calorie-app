@@ -131,6 +131,18 @@
           "fat": 2,
           "carbs": 3,
           "id": "e08teos001"
+        },
+        {
+          "time": "16:08",
+          "meal": "snack",
+          "source": "voice",
+          "title": "Сыр «Брест-Литовск» классический",
+          "detail": "5 г",
+          "calories": 18,
+          "protein": 1,
+          "fat": 1,
+          "carbs": 0,
+          "id": "e08syr0001"
         }
       ]
     },
