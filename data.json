@@ -64,7 +64,7 @@
     },
     "2026-09-07": {
       "steps": 0,
-      "water": 0,
+      "water": 1500,
       "entries": [
         {
           "time": "09:46",
@@ -282,11 +282,12 @@
           "carbs": 8,
           "id": "e07capp001"
         }
-      ]
+      ],
+      "zaryadka": true
     },
     "2026-09-05": {
       "steps": 3200,
-      "water": 0,
+      "water": 2000,
       "entries": [
         {
           "time": "07:50",
@@ -348,11 +349,12 @@
           "carbs": 60,
           "id": "e05dinner1"
         }
-      ]
+      ],
+      "zaryadka": true
     },
     "2026-09-06": {
       "steps": 0,
-      "water": 0,
+      "water": 1750,
       "entries": [
         {
           "time": "13:35",
@@ -450,7 +452,8 @@
           "carbs": 10,
           "id": "e06artek01"
         }
-      ]
+      ],
+      "zaryadka": true
     }
   },
   "appliedOps": [
