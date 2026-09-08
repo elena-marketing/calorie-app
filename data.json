@@ -203,6 +203,18 @@
           "fat": 0,
           "carbs": 8,
           "id": "e08wine01"
+        },
+        {
+          "time": "23:58",
+          "meal": "snack",
+          "source": "text",
+          "title": "Сыр бри",
+          "detail": "1/4 небольшой головки, оценка ~30 г",
+          "calories": 100,
+          "protein": 6,
+          "fat": 8,
+          "carbs": 0,
+          "id": "e08brie01"
         }
       ]
     },
