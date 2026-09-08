@@ -1,5 +1,5 @@
 {
-  "today": "2026-09-07",
+  "today": "2026-09-08",
   "goals": {
     "calories": 1500,
     "protein": 112,
@@ -10,7 +10,7 @@
     "sleepHours": 7
   },
   "habits": {
-    "waterCurrent": 0,
+    "waterCurrent": 500,
     "zaryadka": false,
     "sleepHours": 0
   },
@@ -20,6 +20,48 @@
     "periodLength": 5
   },
   "days": {
+    "2026-09-08": {
+      "steps": 0,
+      "water": 500,
+      "entries": [
+        {
+          "time": "10:25",
+          "meal": "breakfast",
+          "source": "voice",
+          "title": "Блин с мясом и жареным луком",
+          "detail": "как обычно: блин (~50 г), мясной фарш (~50 г), жареный лук (~15 г)",
+          "calories": 250,
+          "protein": 18,
+          "fat": 15,
+          "carbs": 14,
+          "id": "e08blinmt1"
+        },
+        {
+          "time": "10:25",
+          "meal": "breakfast",
+          "source": "voice",
+          "title": "Бутерброд с колбасой и сыром",
+          "detail": "хлеб ~30 г, колбаса ~25 г, сыр ~20 г; веса оценены",
+          "calories": 220,
+          "protein": 11,
+          "fat": 13,
+          "carbs": 15,
+          "id": "e08buter01"
+        },
+        {
+          "time": "10:25",
+          "meal": "breakfast",
+          "source": "voice",
+          "title": "Зелёный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e08tea0001"
+        }
+      ]
+    },
     "2026-09-07": {
       "steps": 0,
       "water": 0,
