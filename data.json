@@ -191,6 +191,18 @@
           "fat": 1,
           "carbs": 12,
           "id": "e08savoja1"
+        },
+        {
+          "time": "22:37",
+          "meal": "snack",
+          "source": "text",
+          "title": "Красное полусладкое вино",
+          "detail": "бокал ~150 мл",
+          "calories": 125,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 8,
+          "id": "e08wine01"
         }
       ]
     },
