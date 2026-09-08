@@ -95,6 +95,42 @@
           "fat": 0,
           "carbs": 0,
           "id": "e08tea0002"
+        },
+        {
+          "time": "16:09",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Блин с мясом и жареным луком",
+          "detail": "как обычно: блин (~50 г), мясной фарш (~50 г), жареный лук (~15 г)",
+          "calories": 250,
+          "protein": 18,
+          "fat": 15,
+          "carbs": 14,
+          "id": "e08blinmt2"
+        },
+        {
+          "time": "16:09",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Блин с творогом",
+          "detail": "блин (~50 г), творог (~50 г); без сахара и сметаны, веса оценены",
+          "calories": 185,
+          "protein": 11,
+          "fat": 6,
+          "carbs": 17,
+          "id": "e08blintv1"
+        },
+        {
+          "time": "16:09",
+          "meal": "lunch",
+          "source": "voice",
+          "title": "Греческий йогурт «Теос»",
+          "detail": "4 ст. л. (~90 г), классический 2%",
+          "calories": 58,
+          "protein": 5,
+          "fat": 2,
+          "carbs": 3,
+          "id": "e08teos001"
         }
       ]
     },
