@@ -59,6 +59,42 @@
           "fat": 0,
           "carbs": 0,
           "id": "e08tea0001"
+        },
+        {
+          "time": "12:30",
+          "meal": "snack",
+          "source": "voice",
+          "title": "Фило-ролл «Пятёрочка Кафе» с лимоном и творогом",
+          "detail": "1 шт 60 г, по этикетке (340 ккал/100 г)",
+          "calories": 204,
+          "protein": 3,
+          "fat": 11,
+          "carbs": 24,
+          "id": "e08filo001"
+        },
+        {
+          "time": "12:30",
+          "meal": "snack",
+          "source": "voice",
+          "title": "Пряник шоколадный",
+          "detail": "1 шт (~40 г), оценка",
+          "calories": 140,
+          "protein": 2,
+          "fat": 3,
+          "carbs": 27,
+          "id": "e08prjani1"
+        },
+        {
+          "time": "12:30",
+          "meal": "snack",
+          "source": "voice",
+          "title": "Зелёный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e08tea0002"
         }
       ]
     },
