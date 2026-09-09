@@ -47,6 +47,30 @@
           "fat": 0,
           "carbs": 0,
           "id": "e09tea0001"
+        },
+        {
+          "time": "11:43",
+          "meal": "snack",
+          "source": "text",
+          "title": "Чёрный кофе без сахара",
+          "detail": "300 мл",
+          "calories": 4,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e09coffee1"
+        },
+        {
+          "time": "11:43",
+          "meal": "snack",
+          "source": "text",
+          "title": "Сникерс (большой), половинка",
+          "detail": "~40 г (половина батончика ~80 г); если это был 95 г — поправлю",
+          "calories": 195,
+          "protein": 4,
+          "fat": 10,
+          "carbs": 24,
+          "id": "e09snick1"
         }
       ]
     },
