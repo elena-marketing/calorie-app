@@ -71,6 +71,18 @@
           "fat": 10,
           "carbs": 24,
           "id": "e09snick1"
+        },
+        {
+          "time": "17:04",
+          "meal": "snack",
+          "source": "text",
+          "title": "Чёрный кофе без сахара",
+          "detail": "300 мл",
+          "calories": 4,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e09coffee2"
         }
       ]
     },
