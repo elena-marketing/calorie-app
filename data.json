@@ -131,6 +131,30 @@
           "fat": 1,
           "carbs": 4,
           "id": "e09lecho1"
+        },
+        {
+          "time": "20:49",
+          "meal": "dinner",
+          "source": "text",
+          "title": "Рис отварной",
+          "detail": "2 ст. ложки (~45 г готового)",
+          "calories": 58,
+          "protein": 1,
+          "fat": 0,
+          "carbs": 13,
+          "id": "e09rice01"
+        },
+        {
+          "time": "20:49",
+          "meal": "dinner",
+          "source": "text",
+          "title": "Свинина жареная",
+          "detail": "20 г",
+          "calories": 58,
+          "protein": 4,
+          "fat": 5,
+          "carbs": 0,
+          "id": "e09pork01"
         }
       ]
     },
