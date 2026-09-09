@@ -95,6 +95,42 @@
           "fat": 7,
           "carbs": 7,
           "id": "e09baton1"
+        },
+        {
+          "time": "17:06",
+          "meal": "lunch",
+          "source": "text",
+          "title": "Куриная голень запечённая",
+          "detail": "1 шт, ~80 г съедобной части с кожей; в духовке",
+          "calories": 150,
+          "protein": 16,
+          "fat": 9,
+          "carbs": 0,
+          "id": "e09golen1"
+        },
+        {
+          "time": "17:06",
+          "meal": "lunch",
+          "source": "text",
+          "title": "Картофельное пюре",
+          "detail": "70 г, с молоком и маслом",
+          "calories": 80,
+          "protein": 2,
+          "fat": 3,
+          "carbs": 11,
+          "id": "e09pure01"
+        },
+        {
+          "time": "17:06",
+          "meal": "lunch",
+          "source": "text",
+          "title": "Лечо",
+          "detail": "50 г",
+          "calories": 25,
+          "protein": 1,
+          "fat": 1,
+          "carbs": 4,
+          "id": "e09lecho1"
         }
       ]
     },
