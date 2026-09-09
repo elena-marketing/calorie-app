@@ -1,5 +1,5 @@
 {
-  "today": "2026-09-08",
+  "today": "2026-09-09",
   "goals": {
     "calories": 1500,
     "protein": 112,
@@ -10,7 +10,7 @@
     "sleepHours": 7
   },
   "habits": {
-    "waterCurrent": 500,
+    "waterCurrent": 0,
     "zaryadka": false,
     "sleepHours": 0
   },
@@ -20,6 +20,36 @@
     "periodLength": 5
   },
   "days": {
+    "2026-09-09": {
+      "steps": 0,
+      "water": 0,
+      "entries": [
+        {
+          "time": "11:42",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Блин с творогом",
+          "detail": "блин (~50 г), творог (~50 г); без сахара и сметаны, веса оценены",
+          "calories": 185,
+          "protein": 11,
+          "fat": 6,
+          "carbs": 17,
+          "id": "e09blintv1"
+        },
+        {
+          "time": "11:42",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Зелёный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e09tea0001"
+        }
+      ]
+    },
     "2026-09-08": {
       "steps": 0,
       "water": 500,
