@@ -71,6 +71,18 @@
           "fat": 1,
           "carbs": 15,
           "id": "e10baton1"
+        },
+        {
+          "time": "12:49",
+          "meal": "snack",
+          "source": "text",
+          "title": "Конфета «Отломи»",
+          "detail": "2 шт (~30 г), оценка веса",
+          "calories": 160,
+          "protein": 2,
+          "fat": 9,
+          "carbs": 18,
+          "id": "e10otlomi1"
         }
       ]
     },
