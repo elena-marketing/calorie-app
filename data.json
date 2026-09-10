@@ -1,5 +1,5 @@
 {
-  "today": "2026-09-09",
+  "today": "2026-09-10",
   "goals": {
     "calories": 1500,
     "protein": 112,
@@ -20,6 +20,60 @@
     "periodLength": 5
   },
   "days": {
+    "2026-09-10": {
+      "steps": 0,
+      "water": 0,
+      "entries": [
+        {
+          "time": "12:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Блин с творогом",
+          "detail": "блин (~50 г), творог (~50 г), сметана (~15 г), сахар (~8 г); веса оценены",
+          "calories": 240,
+          "protein": 11,
+          "fat": 10,
+          "carbs": 25,
+          "id": "e10blintv1"
+        },
+        {
+          "time": "12:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Зелёный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e10tea0001"
+        },
+        {
+          "time": "12:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Яичница из 1 яйца",
+          "detail": "1 яйцо, жарено на небольшом количестве масла",
+          "calories": 110,
+          "protein": 7,
+          "fat": 9,
+          "carbs": 1,
+          "id": "e10egg001"
+        },
+        {
+          "time": "12:46",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Батон",
+          "detail": "1 кусок (~30 г)",
+          "calories": 80,
+          "protein": 3,
+          "fat": 1,
+          "carbs": 15,
+          "id": "e10baton1"
+        }
+      ]
+    },
     "2026-09-09": {
       "steps": 0,
       "water": 0,
