@@ -119,6 +119,54 @@
           "fat": 0,
           "carbs": 7,
           "id": "e10beet01"
+        },
+        {
+          "time": "18:57",
+          "meal": "snack",
+          "source": "text",
+          "title": "Булочка сдобная с маком и посыпкой",
+          "detail": "1 шт, оценка ~70 г",
+          "calories": 250,
+          "protein": 6,
+          "fat": 8,
+          "carbs": 40,
+          "id": "e10bulka1"
+        },
+        {
+          "time": "18:57",
+          "meal": "snack",
+          "source": "text",
+          "title": "Кофе чёрный без сахара",
+          "detail": "300 мл; посчитан как чёрный",
+          "calories": 4,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e10coffee1"
+        },
+        {
+          "time": "18:57",
+          "meal": "snack",
+          "source": "text",
+          "title": "Конфета «Отломи»",
+          "detail": "1 шт (~15 г)",
+          "calories": 80,
+          "protein": 1,
+          "fat": 5,
+          "carbs": 9,
+          "id": "e10otlomi2"
+        },
+        {
+          "time": "18:57",
+          "meal": "snack",
+          "source": "text",
+          "title": "Мороженое пломбир в вафельном стаканчике",
+          "detail": "1 шт, оценка ~80 г",
+          "calories": 210,
+          "protein": 3,
+          "fat": 12,
+          "carbs": 22,
+          "id": "e10icecr1"
         }
       ]
     },
