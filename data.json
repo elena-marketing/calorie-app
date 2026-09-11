@@ -47,6 +47,30 @@
           "fat": 0,
           "carbs": 0,
           "id": "e11tea001"
+        },
+        {
+          "time": "10:13",
+          "meal": "snack",
+          "source": "text",
+          "title": "Конфета «Отломи»",
+          "detail": "1 шт (~15 г)",
+          "calories": 80,
+          "protein": 1,
+          "fat": 5,
+          "carbs": 9,
+          "id": "e11otlomi1"
+        },
+        {
+          "time": "10:13",
+          "meal": "snack",
+          "source": "text",
+          "title": "Зелёный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e11tea002"
         }
       ]
     },
