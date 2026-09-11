@@ -1,5 +1,5 @@
 {
-  "today": "2026-09-10",
+  "today": "2026-09-11",
   "goals": {
     "calories": 1500,
     "protein": 112,
@@ -20,6 +20,36 @@
     "periodLength": 5
   },
   "days": {
+    "2026-09-11": {
+      "steps": 0,
+      "water": 0,
+      "entries": [
+        {
+          "time": "09:01",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Бутерброд со сливочным маслом и сыром",
+          "detail": "2 шт; батон (~30 г), сливочное масло (~8 г), сыр (~20 г) на каждый; веса оценены",
+          "calories": 420,
+          "protein": 16,
+          "fat": 26,
+          "carbs": 30,
+          "id": "e11buter1"
+        },
+        {
+          "time": "09:01",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Зелёный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e11tea001"
+        }
+      ]
+    },
     "2026-09-10": {
       "steps": 0,
       "water": 0,
