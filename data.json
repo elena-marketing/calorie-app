@@ -95,6 +95,30 @@
           "fat": 11,
           "carbs": 9,
           "id": "e11svekla1"
+        },
+        {
+          "time": "23:18",
+          "meal": "dinner",
+          "source": "text",
+          "title": "Шаурма куриная",
+          "detail": "стандартная (~300 г): лаваш, курица, соус, овощи; вес оценён, разброс 450–650 ккал",
+          "calories": 550,
+          "protein": 28,
+          "fat": 28,
+          "carbs": 45,
+          "id": "e11shaurma1"
+        },
+        {
+          "time": "23:18",
+          "meal": "dinner",
+          "source": "text",
+          "title": "Кока-кола",
+          "detail": "200 мл",
+          "calories": 84,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 21,
+          "id": "e11cola1"
         }
       ]
     },
