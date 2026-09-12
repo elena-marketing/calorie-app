@@ -95,6 +95,30 @@
           "fat": 10,
           "carbs": 45,
           "id": "e12shrimp1"
+        },
+        {
+          "time": "23:17",
+          "meal": "snack",
+          "source": "text",
+          "title": "Капучино",
+          "detail": "300 мл, на молоке ~3,2%, без сахара",
+          "calories": 95,
+          "protein": 5,
+          "fat": 5,
+          "carbs": 8,
+          "id": "e12capp2"
+        },
+        {
+          "time": "23:17",
+          "meal": "snack",
+          "source": "text",
+          "title": "Попкорн карамельный",
+          "detail": "маленький стаканчик, оценка ~50 г; веса оценены",
+          "calories": 215,
+          "protein": 2,
+          "fat": 7,
+          "carbs": 38,
+          "id": "e12popcorn1"
         }
       ]
     },
