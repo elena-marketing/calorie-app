@@ -59,6 +59,42 @@
           "fat": 0,
           "carbs": 0,
           "id": "e12tea001"
+        },
+        {
+          "time": "23:15",
+          "meal": "lunch",
+          "source": "text",
+          "title": "Капучино",
+          "detail": "300 мл, на молоке ~3,2%, без сахара",
+          "calories": 95,
+          "protein": 5,
+          "fat": 5,
+          "carbs": 8,
+          "id": "e12capp1"
+        },
+        {
+          "time": "23:15",
+          "meal": "lunch",
+          "source": "text",
+          "title": "Креветки в кляре",
+          "detail": "6 шт, оценка ~110 г, обжарены во фритюре; веса оценены",
+          "calories": 290,
+          "protein": 14,
+          "fat": 16,
+          "carbs": 22,
+          "id": "e12krevet1"
+        },
+        {
+          "time": "23:15",
+          "meal": "lunch",
+          "source": "text",
+          "title": "Шримп-ролл",
+          "detail": "1 ролл с креветкой (~8 шт), оценка; рис, креветка, соус; веса оценены",
+          "calories": 320,
+          "protein": 12,
+          "fat": 10,
+          "carbs": 45,
+          "id": "e12shrimp1"
         }
       ]
     },
