@@ -1,5 +1,5 @@
 {
-  "today": "2026-09-11",
+  "today": "2026-09-12",
   "goals": {
     "calories": 1500,
     "protein": 112,
@@ -20,6 +20,48 @@
     "periodLength": 5
   },
   "days": {
+    "2026-09-12": {
+      "steps": 0,
+      "water": 0,
+      "entries": [
+        {
+          "time": "11:04",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Сырные вафли домашние",
+          "detail": "3 шт, оценка ~120 г; сыр + яйцо + немного муки; веса/рецепт оценены",
+          "calories": 330,
+          "protein": 18,
+          "fat": 22,
+          "carbs": 12,
+          "id": "e12vafli1"
+        },
+        {
+          "time": "11:04",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Творожный сыр",
+          "detail": "2 ст. л. (~40 г)",
+          "calories": 100,
+          "protein": 3,
+          "fat": 9,
+          "carbs": 2,
+          "id": "e12tvsyr1"
+        },
+        {
+          "time": "11:04",
+          "meal": "breakfast",
+          "source": "text",
+          "title": "Зелёный чай",
+          "detail": "300 мл, без сахара",
+          "calories": 2,
+          "protein": 0,
+          "fat": 0,
+          "carbs": 0,
+          "id": "e12tea001"
+        }
+      ]
+    },
     "2026-09-11": {
       "steps": 0,
       "water": 0,
